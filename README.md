@@ -1,1 +1,1 @@
-# Full-Stack-in-Django
+# Full-Stack-in-Django-Framework
