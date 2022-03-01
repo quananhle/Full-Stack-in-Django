@@ -1,6 +1,6 @@
 ## Full-Stack-in-Django-Framework
 
-This repository contains code examples of various workstations and features which function similarly to the codes I developed and pushed to build a real-world cloud-based shop floor control (SFC) that is currently being deployed in manufacturing plants of a company in the top 5 world largest manufacturing companies by revenue. The shop floor management application is used to track the progress of assembly lines, test the raw components and finished products, and report the status of work of manufacturing plants, and is customized to the needs of client's projects (Amazon, Facebook, Microsoft, Seagate)
+This repository contains code examples of various workstations and features I was in charge of full-stack developing, committing, and maintaining to build a native cloud shop floor control (SFC) that is currently being deployed in multiple manufacturing plants (North America and oversea) of a company in the [top 5 world largest manufacturing companies by revenue](https://en.wikipedia.org/wiki/List_of_largest_manufacturing_companies_by_revenue#:~:text=%20%20%20%20No.%20%20%20,%20South%20Korea%20%2036%20more%20rows%20). The shop floor management application is used to track the progress of assembly lines, test the raw components and finished products, and report the status of work of manufacturing plants, and is tailored to the needs of different client's projects (Amazon, Facebook, Microsoft, Seagate)
 
 ## Languages and Frameworks
 
