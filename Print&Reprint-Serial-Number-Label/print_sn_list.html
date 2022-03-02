@@ -1,0 +1,271 @@
+{% extends 'main/index.html' %}
+{% block content %}
+{% load static %}
+<main class="page-content">
+    <div class="container-fluid">
+        <nav aria-label="breadcrumb" class="breadcrumb-style">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}"><span class="fa fa-home breadcrumb-icon"></span>Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'lrm:lrm_home' %}"><span class="fa breadcrumb-icon"></span>Label Room</a></li>
+            <li class="breadcrumb-item active" aria-current="page" id="title">{{ viewTitle }}</li>
+        </ol>
+        </nav>
+        <div class="content-layout">
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <form method="POST" action= "" id="form">
+                        <div class="form-row">
+                            {% csrf_token %}
+                            <div class="form-group col-md-0.5">
+                                <label for="wo_input" style="font-size: 5mm; margin-top: 6px;">WO</label>
+                            </div> 
+                            <div class="form-group col-md-2" id="wo_input_field">
+                                <input type="text" style="color: #000000;" class="form-control" id="wo_input" name="wo_input" value ='{{wo_input}}' Required style="margin-left: 5px;">
+                            </div> 
+                            <div class="form-group col-md-0.5">
+                                <div class="loader form-group mx-sm-2 mb-1" id="spinner_left"></div>
+                            </div>
+                            <div class="form-group col-md-1.5 align-self-end" style="padding-bottom: 1px;">
+                                <button id="print_button" type="button" class="btn btn-primary mb-2" style="font-weight: bold; background-color: #00CC00; "> Single SN <i class="fa fa-print"></i></button>
+                            </div>
+                            <div class="form-group col-md-1.5 align-self-end" style="padding-bottom: 1px;">
+                                <button id="print_all_button" type="button" class="btn btn-primary mb-2" style="font-weight: bold; background-color: #00CC00;"> All SNs <i class="fa fa-print"></i></button>
+                            </div>
+                            <div class="form-group col-md-1 align-self-end" style="padding-bottom: 1px;">
+                                <button id="reset_button" type="button" class="btn btn-primary mb-2" style="font-weight: bold; background-color: #fc0909;">Clear <i class="fa fa-eraser"></i></button>
+                            </div>
+                            <div class="form-group col-md-0.5">
+                                <div class="loader form-group mx-sm-2 mb-1" id="spinner_right"></div>
+                            </div>
+                            <div class="col-md-6 align-self-center" >    
+                                <div  id="msgModal" style="height: 1.5cm;">
+                                    {% if errorMsg  %}                                  
+                                        <div class="alert alert-danger" role="alert" style="margin: 0;">          
+                                            <p class="mb-0" id="errorMsg">{{ errorMsg }}</p>
+                                        </div>
+                                    {% endif %}
+                                    {% if successMsg  %}                                  
+                                    <div class="alert alert-danger" role="alert" style="margin: 0;">          
+                                        <p class="mb-0" id="successMsg">{{ successMsg }}</p>
+                                    </div>
+                                    {% endif %}                                  
+                                </div>  
+                            </div> 
+
+                        </div>
+                        <hr style="border: 0; margin-top: 20px; height: 2px; width:100%; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));">
+                        <div class="row">
+                            <div class="col-md-12 ">
+                                <div class="form-row">
+                                    <header><h5 id="workorder_type_header">Production/CK Order</h5></header>
+                                    <div class="form-inline col-md-12 content-layout" style="padding-bottom: 0;padding-top: 1rem;">                            
+                                        <div class="col-md-2" style="width:800px; margin:0 auto;">
+                                            <div class="card border-success  mb-3" >    
+                                                <div class="card-header" style="padding-right: .5rem;padding-left: .5rem;padding-top: 0;padding-bottom: 0;text-align: center;"><strong>Status</strong></div>                            
+                                                <div class="card-body text-success " style="padding: .5rem;">
+                                                    <p class="card-text" style="text-align: center;" id="status_card"><strong>{% if status %} {{status}} {% else %} &nbsp {% endif %}</strong> </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2" style="width:800px; margin:0 auto;">
+                                            <div class="card border-primary mb-3" >    
+                                                <div class="card-header" style="padding-right: .5rem;padding-left: .5rem;padding-top: 0;padding-bottom: 0;text-align: center;"><strong>Quantity</strong></div>                            
+                                                <div class="card-body text-primary" style="padding: .5rem;">
+                                                    <p class="card-text" style="text-align: center;" id="qty_card"><strong>{% if quantity %} {{quantity}} {% else %} &nbsp {% endif %}</strong> </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2" style="width:800px; margin:0 auto;">
+                                            <div class="card border-success  mb-3" >    
+                                                <div class="card-header" style="padding-right: .5rem;padding-left: .5rem;padding-top: 0;padding-bottom: 0;text-align: center;"><strong>SKU</strong></div>                            
+                                                <div class="card-body text-success " style="padding: .5rem;">
+                                                    <p class="card-text" style="text-align: center;" id="sku_card"><strong>{% if sku %} {{sku}} {% else %} &nbsp {% endif %}</strong> </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2" style="width:800px; margin:0 auto;">
+                                            <div class="card border-primary mb-3" >    
+                                                <div class="card-header" style="padding-right: .5rem;padding-left: .5rem;padding-top: 0;padding-bottom: 0;text-align: center;"><strong>Production Version</strong></div>                            
+                                                <div class="card-body text-primary" style="padding: .5rem;">
+                                                    <p class="card-text" style="text-align: center; white-space: pre-wrap;" id="wo_type_card"><strong>{% if wo_type %} {{wo_type}} {% else %} &nbsp {% endif %}</strong> </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2" style="width:800px; margin:0 auto;">
+                                            <div class="card border-success  mb-3" >    
+                                                <div class="card-header" style="padding-right: .5rem;padding-left: .5rem;padding-top: 0;padding-bottom: 0;text-align: center;"><strong>SN From</strong></div>                            
+                                                <div class="card-body text-success " style="padding: .5rem;">
+                                                    <p class="card-text" style="text-align: center;" id="sn_from_card"><strong>{% if sn_from %} {{sn_from}} {% else %} &nbsp {% endif %}</strong> </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2" style="width:800px; margin:0 auto;">
+                                            <div class="card border-primary mb-3" >    
+                                                <div class="card-header" style="padding-right: .5rem;padding-left: .5rem;padding-top: 0;padding-bottom: 0;text-align: center;"><strong>SN To</strong></div>                            
+                                                <div class="card-body text-primary" style="padding: .5rem;">
+                                                    <p class="card-text" style="text-align: center; white-space: pre-wrap;" id="sn_to_card"><strong>{% if sn_to %} {{sn_to}} {% else %} &nbsp {% endif %}</strong> </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <input style="visibility: hidden; display: none;" id="model_id" name="model_id" Value='{{ workorder_id_object.workorder_id }}'>                                 
+                                        <input style="visibility: hidden; display: none;" id="profile"  name="profile"  Value='{{ user.get_username }}'>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 ">
+                                <div class="form-row">
+                                    <div class="form-group col-md-12 content-layout">
+                                        <table class="table table-hover tbl-font table-striped table-bordered table-sm align-act-buttons" id="serial_number_list_table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">No</th>
+                                                    <th scope="col">Serial Number</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="serial_number_list_table_tbody">
+                                                {% if serial_number_list %}
+                                                    {% with serial_number_list as pal %}
+                                                        {% for a in pal %}
+                                                            <tr>
+                                                                <td>{{ forloop.counter }}</td>
+                                                                <td>{{ a.0 }}</td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                    {% endwith %}
+                                                {% endif %}
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th scope="col">No</th>
+                                                    <th scope="col">Serial Number</th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 ">
+                                <div class="form-row">
+                                    <div class="form-group col-md-12 content-layout">
+                                        <table class="table table-hover tbl-font table-striped table-bordered table-sm align-act-buttons" id="print_status_tracking_table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Input</th>
+                                                    <th scope="col">Message</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {%if print_response %}
+                                                    {% with print_response as pal %}
+                                                        {% for a in pal %}
+                                                            <tr>
+                                                                <td>{{a.0}}</td>
+                                                                <td>{{a.1}}</td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                    {% endwith %}
+                                                {% endif %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>   
+            <hr>
+        </div>
+
+        <footer class="text-center">
+            <div class="mb-2">
+                <small>© 2021 Fii HOU SWD</small>
+            </div>
+        </footer>
+        <input type="hidden" id="profile" Value='{{ user.get_username }}'>
+    </div>
+</main>
+
+<style>
+    .loader {
+        display: none;
+        border-top: 4px solid blue;
+        border-right: 4px solid green;
+        border-bottom: 4px solid red;
+        border-left: 4px solid #ffc000;
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        animation: spin 2s linear infinite;
+        margin: auto;
+        margin-top: 0.35em;
+
+    }
+        
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    tr.row_selected td {
+        color: white;
+        background-color:rgb(26, 224, 214) !important;
+    }
+
+    .btn {
+        display: none;
+        border: none;
+        border-radius: 10px;
+        padding: 3px 20px;
+        border-color: rgb(0, 255, 200);
+        border-style: solid;
+    }
+
+</style>
+
+{% load static %}
+<script src="{% static 'main_theme/js/layout.js' %}"></script>
+<script src="{% static 'apps/lrm/print_sn_list/print_sn_list.js' %}"></script>
+
+<script type="text/javascript">   
+    $(document).ready(function () {
+        $('#serial_number_list_table').DataTable();
+        /* Add a click handler to the rows - this could be used as a callback */
+        $("#serial_number_list_table tbody tr").on('click',function(event) {
+            $("#serial_number_list_table tbody tr").removeClass('row_selected');
+            $(this).addClass('row_selected');
+        });
+    });
+
+    $("#wo_input").keypress(function(event ) {
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if (keycode == 13) {
+            event.preventDefault();
+            psl.loadData();
+        }
+    });
+
+    $("#print_button").click(function(event) {
+        console.log("Print Single Label Button pressed!");
+        event.preventDefault();
+        psl.print();
+    });
+
+    $("#print_all_button").click(function(event) {
+        console.log("Print All Labels Button pressed!");
+        event.preventDefault();
+        psl.printAll();
+    }); 
+
+    $("#reset_button").click(function(event) {
+        console.log("Reset Button pressed!");
+        event.preventDefault();
+        psl.reset();
+    }); 
+</script>
+
+{% endblock %}
