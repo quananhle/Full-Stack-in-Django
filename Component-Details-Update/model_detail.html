@@ -1,0 +1,207 @@
+{% extends 'main/index.html' %}
+
+{% block content %}
+{% load static %}
+
+<main class="page-content">
+    <div class="container-fluid">
+        <nav aria-label="breadcrumb" class="breadcrumb-style">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}"><span class="fa fa-home breadcrumb-icon"></span>Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'mfg:mfg_home' %}"><span class="fa breadcrumb-icon"></span>Manufacturing</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'mfg:wip_mo_manager' %}"><span class="fa breadcrumb-icon"></span>Model Manager</a></li>
+                <li class="breadcrumb-item active">Model ID Detail - <strong>{{ model_id }}</strong></li>
+            </ol>
+        </nav>
+
+        <div class="content-layout"> 
+            {% if model_info %}
+            <header><h2>Main Data</h2></header>
+                <div class="form-row" method="POST">
+                    {% csrf_token %} 
+                    <div class="form-group col-md-4">
+                        <label for="inputKeypart">Keypart</label>
+                        <select class="form-control" style="color: #000000;" id="inputKeypart" name="inputKeypart">
+                            <option value="" disabled selected>Select keypart</option>
+                            <option value="1">On</option>
+                            <option value="0">Off</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputMaskRule">Mask Rule</label>
+                        <input type="text" style="color: #000000;" class="form-control" id="inputMaskRule" placeholder="Enter Mask Rule Here">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputCategoryID">Category ID</label>
+                        <input type="text" style="color: #000000;" class="form-control" id="inputCategoryID" placeholder="Enter Category ID Here">
+                    </div>
+                </div>
+                <table class="table table-hover tbl-font table-striped table-bordered table-sm align-act-buttons" id="form-tracking-master-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Model ID</th>
+                            <th scope="col">Keypart</th>
+                            <th scope="col">Mask Rule</th>
+                            <th scope="col">Category ID</th>
+                            <th scope="col">Plant Code</th>
+                            <th scope="col">SAP Changed Date</th>                                         
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                                <td> {{ model_id   }}</td>
+                                <td> {{ keypart    }}</td>
+                                <td> {{ mask_rule  }}</td>
+                                <td> {{ category_id}}</td>
+                                <td> {{ plant      }}</td>
+                                <td> {{ sap_changed}}</td>
+                        </tr>                                   
+                    </tbody>
+                </table>  
+
+                <div class="col-md-12 " style="height: 0.5cm; visibility: hidden;"></div>
+                <!-- <hr style="border: 0; width:75%; height: 1px;  background: #333; background-image: linear-gradient(to right, #ccc, #333, #ccc);"> -->
+                <hr style="border: 0; height: 2px; width:90%; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));">
+                <div class="col-md-12 " style="height: 0.5cm; visibility: hidden;"></div>
+
+            <header><h2>Related Data</h2></header>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="inputSpanishDescription">Spanish Description</label>
+                        <input type="text" style="color: #000000;" class="form-control" id="inputSpanishDescription" placeholder="Enter Spanish Description Here">
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputFraccNico">Fracc Nico</label>
+                        <input type="text" style="color: #000000;" class="form-control" id="inputFraccNico" placeholder="Enter Fracc Nico Here">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputUOMValue">UOM Value</label>
+                        <input type="text" style="color: #000000;" class="form-control" id="inputUOMValue" placeholder="Enter UOM Value Here">
+                    </div>                    
+                </div>                
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="inputHstCode">HST Code</label>
+                        <input type="text" style="color: #000000;" class="form-control" id="inputHstCode" placeholder="Enter HST Code Here">
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputFraccDigits">Fracc Digits</label>
+                        <input type="text" style="color: #000000;" class="form-control" id="inputFraccDigits" placeholder="Enter Fracc Digits Here">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputTechnicalDescription">Technical Description</label>
+                        <input type="text" style="color: #000000;" class="form-control" id="inputTechnicalDescription" placeholder="Enter Technical Description Here">
+                    </div>
+                </div>
+                <table class="table table-hover tbl-font table-striped table-bordered table-sm align-act-buttons" id="form-tracking-data_related-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Spanish Description</th>
+                            <th scope="col">Fracc Nico</th>
+                            <th scope="col">UOM Value</th>  
+                            <th scope="col">HST Code</th>
+                            <th scope="col">Fracc Digit</th>
+                            <th scope="col">Technical Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>                                      
+                                <td>{{ esp_desc    }}</td>
+                                <td>{{ fracc_nico  }}</td>
+                                <td>{{ uom         }}</td>
+                                <td>{{ hst         }}</td>
+                                <td>{{ fracc_digits}}</td>
+                                <td>{{ tech_desc   }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="form-row">
+                    <div class="col-md-1 form-group" style="margin-top: 10pt;">
+                        <button type="submit" class="btn btn-primary" id="updateButton" style="background-color: #00CC00;">Update</button> 
+                    </div>
+                    <div class="col-md-1 form-group" style="margin-top: 10pt;">
+                        <div class="loader form-group mx-sm-2 mb-1" id="spinner"></div> 
+                    </div>
+                    <div class="col-md-8' align-self-center">   
+                        <div  id="errorMsgModal" class="w-100 p-1" >
+                            {% if errorMsg  %}                                  
+                                <div class="alert alert-danger" role="alert" style="margin: 0;">          
+                                    <p class="mb-0" id="errorMsg">{{ errorMsg }}</p>
+                                </div>
+                            {% endif %}
+                        </div>  
+                        <div  id="successMsgModal" class="w-100 p-1" >
+                            {% if successMsg  %}                                  
+                                <div class="alert alert-danger" role="alert" style="margin: 0;">          
+                                    <p class="mb-0" id="successMsg">{{ successMsg }}</p>
+                                </div>
+                            {% endif %}
+                        </div>  
+                    </div> 
+                </div>
+            </form>
+            {% endif %} 
+        </div>
+
+   
+        <footer class="text-center">
+            <div class="mb-2">
+                <small>© 2021 Fii HOU SWD</small>
+            </div>
+            <input style="visibility: hidden;" id="model_id" name="model_id" Value="{{ model_id }}">                                 
+            <input style="visibility: hidden;" id="profile" name="profile" Value="{{ user.get_username }}">
+        </footer>
+    </div>
+</main>
+
+<style>
+    .loader {
+        display: none;
+        border-top: 4px solid blue;
+        border-right: 4px solid green;
+        border-bottom: 4px solid red;
+        border-left: 4px solid #ffc000;
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        animation: spin 2s linear infinite;
+        margin: auto;
+    }
+        
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+        
+    }
+</style>
+
+{% load static %}
+<script src="{% static '/apps/model_manager/model_update.js' %}"></script>
+
+<script type="text/javascript"> 
+
+    console.log("Model ID: ", document.getElementById('model_id').value);
+    console.log("Username: ", document.getElementById('profile').value);
+
+    $("#main_info_update_button").click(function(event) {
+        console.log("Main Info Update Button Pressed");
+        event.preventDefault();
+        mm.updateButtonMainInfo();
+    });
+
+    $("#data_related_update_button").click(function(evennt) {
+        console.log("Data Related Update Button Pressed");
+        event.preventDefault();
+        mm.updateButtonDataRelated();
+    });    
+
+    $("#updateButton").click(function(evennt) {
+        console.log("Update Button Pressed");
+        event.preventDefault();
+        mm.updateButton();
+    });
+
+</script>
+{% endblock %}
