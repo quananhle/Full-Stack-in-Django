@@ -7,6 +7,7 @@ from lrm.print.print_label import print_label
 #=== LOCAL IMPORTS
 from srv.database.db_actions import *
 from srv.print.label.print_label import *
+from mfg.wip_flow.sn_object import SerialNumber
 
 class PrintSerialNumber(LoginRequiredMixin, generic.ListView):
     template_name = 'print_sn/print_sn_list.html'
@@ -151,3 +152,146 @@ def lrm_print_all_sn(request):
         })
 
         return JsonResponse(context, safe=False, status=200)
+
+def print_all_labels(workorder, serial_number_list, workorder_type, profile):
+    print (serial_number_list)
+    context = {}
+    log = ''
+
+    if workorder_type == 'PMWO':
+        transType = 'PRD-SN-LABEL'
+        objectType = 'PRD-SN-LABEL'
+    if workorder_type == 'PMCK':
+        transType = 'CK-SN-LABEL'
+        objectType = 'CK-SN-LABEL'        
+    if workorder_type == '1GWO':
+        transType = '1G-PRD-SN-LABEL'
+        objectType = '1G-PRD-SN-LABEL'
+
+    for i in range(len(serial_number_list)):
+        object_value = serial_number_list[i]
+        print (object_value)
+
+        '''
+        // Hashtable for serial_number and skuno
+
+        keys = ['serial_number', 'skuno']
+        values = [object_value[j] for j in range(len(object_value))]
+        sn_info = {key:value for key,value in zip(keys,values)}
+        '''
+        printService = PrintLabel()
+        sn_object = SerialNumber()
+        serial_number = object_value[0]
+
+        log = 'Print Batch Labels: Failed to Set Up Printer'
+        printService.get_bt_data(objectType)
+        if printService.error:
+            context.update ({
+                'message' : printService.error, 
+                'result' : 'FAIL', 
+                'sn' : serial_number,
+                'log_message' : log
+            })
+            sn_object.sadmin_log('EXCEPTION', 'Print SN Label', 'FAIL', serial_number, log, profile)
+            return context
+
+        printService.get_data(serial_number, transType)
+        if printService.error:
+            context.update ({
+                'message' : printService.error, 
+                'result' : 'FAIL', 
+                'sn' : serial_number,
+                'log_message' : log
+            })
+            sn_object.sadmin_log('EXCEPTION', 'Print SN Label', 'FAIL', serial_number, log, profile)
+            return context
+
+        log = 'Print Batch Labels: Failed to Connect Printer'
+        printService.set_print()
+        if printService.error:
+            context.update ({
+                'message' : printService.error, 
+                'result' : 'FAIL', 
+                'sn' : serial_number,
+                'log_message' : log
+            })
+            sn_object.sadmin_log('EXCEPTION', 'Print SN Label', 'FAIL', serial_number, log, profile)
+            return context
+
+    context.update ({
+        'message' : printService.printResult, 
+        'result' : 'PASS', 
+        'sn' : serial_number,
+        'log_message' : log
+    })
+
+    message = 'Successfully Generated All Labels of Work Order: {}'.format(workorder)
+    sn_object.sadmin_log('CREATE', 'Print SN Label', 'PASS', serial_number, message, profile)
+
+    return context
+
+def print_label(serial_number, workorder_type, profile):
+    log = ''
+    if workorder_type == 'PMWO':
+        transType = 'PRD-SN-LABEL'
+        objectType = 'PRD-SN-LABEL'
+    if workorder_type == 'PMCK':
+        transType = 'CK-SN-LABEL'
+        objectType = 'CK-SN-LABEL'    
+    if workorder_type == '1GWO':
+        transType = '1G-PRD-SN-LABEL'
+        objectType = '1G-PRD-SN-LABEL'            
+
+    printService = PrintLabel()
+    object_value = serial_number
+
+    context = {}
+
+    printService = PrintLabel()
+    sn_object = SerialNumber()
+
+    log = 'Reprint Single Label: Failed to Set Up Printer'
+    printService.get_bt_data(objectType)
+    if printService.error:
+        context.update ({
+            'message' : printService.error, 
+            'result' : 'FAIL', 
+            'sn' : object_value,
+            'log_message' : log
+        })
+        sn_object.sadmin_log('EXCEPTION', 'Print SN Label', 'FAIL', object_value, log, profile)
+        return context
+
+    printService.get_data(object_value, transType)
+    if printService.error:
+        context.update ({
+            'message' : printService.error, 
+            'result' : 'FAIL', 
+            'sn' : object_value,
+            'log_message' : log
+        })
+        sn_object.sadmin_log('EXCEPTION', 'Print SN Label', 'FAIL', object_value, log, profile)
+        return context
+
+    log = 'Reprint Single Label: Failed to Connect Printer'
+    printService.set_print()
+    if printService.error:
+        context.update ({
+            'message' : printService.error, 
+            'result' : 'FAIL', 
+            'sn' : object_value,
+            'log_message' : log
+        })
+        sn_object.sadmin_log('EXCEPTION', 'Print SN Label', 'FAIL', object_value, log, profile)
+
+        return context
+
+    context.update ({
+        'message' : printService.printResult, 
+        'result' : 'PASS', 
+        'sn' : object_value,
+        'log_message' : log
+    })
+    message = 'Successfully Generated Label: {}'.format(object_value)
+    sn_object.sadmin_log('CREATE', 'Print SN Label', 'PASS', object_value, message, profile)
+    return context
