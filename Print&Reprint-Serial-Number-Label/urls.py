@@ -1,11 +1,12 @@
 from django.urls import path
 from . import views
 
-app_name = 'mfg'
+app_name = 'lrm'
 
-# =================== WIP URLS ============================
-urlpatterns += [
-    path('wip/mo_manager/detail/<pk>', views.WipModelManagerDetailView.as_view(), name='wip_mo_manager_detail'),
-    path('wip/mo_manager/update', views.mfg_material_master_update_serialization, name='mfg_serialization_update'),
-    path('wip/mo_manager/update/serialization', views.mfg_material_update_serialization, name='mfg_material_update_serialization'),
+
+# =================== MFG URLS ============================
+urlpatterns = [
+    path('print-sn/', views.PrintSerialNumber.as_view(), name='lrm_print_sn'),
+    path('print-sn/label', views.lrm_print_sn, name='lrm_print_sn_label'),
+    path('print-sn/all-label', views.lrm_print_all_sn, name='lrm_print_all_sn_label'),
 ]
