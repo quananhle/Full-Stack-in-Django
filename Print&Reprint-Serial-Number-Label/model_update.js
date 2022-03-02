@@ -61,14 +61,14 @@ var mm = {
                 'profile'            : profile,
                 'trans_type_master'  : trans_type_master,
                 'trans_type_detail'  : trans_type_detail,
-                'csrfmiddlewaretoken': tkn            
+                'csrfmiddlewaretoken': tkn
             },
             dataType: 'json',
             success: function (response) {
                 // reset values in both table
                 form_model_manager_master_table.children().remove();
                 form_model_manager_data_table.children().remove();
-                
+
                 // get the data from runfunction(db_conn,'mfg_model_manager_update_fn', sp_params)
                 let object = response.mm_info;
 
@@ -88,18 +88,18 @@ var mm = {
                     data_template   += "<td>" + object[i][9]  + "</td>";    // hst code
                     data_template   += "<td>" + object[i][10] + "</td>";    // fracc digit
                     data_template   += "<td>" + object[i][11] + "</td>";    // technnical description
-                    master_template += "</tr>"; data_template += "</tr>";   
+                    master_template += "</tr>"; data_template += "</tr>";
                 }
                 form_model_manager_master_table.append(master_template);
                 form_model_manager_data_table.append(data_template);
 
                 $('#inputKeypart')             .attr("placeholder", object[0][1]).val('');
-                $('#inputMaskRule')            .val('');               
+                $('#inputMaskRule')            .val('');
                 $('#inputCategoryID')          .val('');
-                $('#inputSpanishDescription')  .val('');    
-                $('#inputFraccNico')           .val('');    
-                $('#inputUOMValue')            .val('');    
-                $('#inputHstCode')             .val('');    
+                $('#inputSpanishDescription')  .val('');
+                $('#inputFraccNico')           .val('');
+                $('#inputUOMValue')            .val('');
+                $('#inputHstCode')             .val('');
                 $('#inputFraccDigits')         .val('');
                 $('#inputTechnicalDescription').val('');
 
@@ -107,7 +107,6 @@ var mm = {
                 $('#spinner').hide();
                 $("#successMsgModal").append(successMessageModal);
                 $('#successMsg').append("Updated Successfully");
-
             },
             error: function (response) {
                 console.log(response);
@@ -132,7 +131,7 @@ var mm = {
             complete: function (response) {
                 console.log("COMPLETED");
                 $('#spinner').hide();
-                console.log(response);          
+                console.log(response);
             }
         })
     }
