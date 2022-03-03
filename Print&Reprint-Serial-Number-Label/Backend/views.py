@@ -61,7 +61,7 @@ class PrintSerialNumber(LoginRequiredMixin, generic.ListView):
         # If passed validation, get related data of input using a function in database
         sp_params = db_obj.createparams(f"{id}")
         wo_info = db_obj.runfunction(db_conn,'lrm_get_wo_info', sp_params)
-
+        # Get all serial number in workorder id using a database function
         sp_params = db_obj.createparams(f"{id}")
         sn_list = db_obj.runfunction(db_conn,'lrm_get_sn_by_wo', sp_params)
 
