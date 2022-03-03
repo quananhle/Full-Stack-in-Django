@@ -64,7 +64,8 @@ class PrintSerialNumber(LoginRequiredMixin, generic.ListView):
         # Get all serial number in workorder id using a database function
         sp_params = db_obj.createparams(f"{id}")
         sn_list = db_obj.runfunction(db_conn,'lrm_get_sn_by_wo', sp_params)
-
+        
+        # Send values received from database functions in JSON response to display in frontend
         keys = ['workorder_id', 'status_id', 'target_qty', 'skuno', 'production_version', 'sn_from', 'sn_to']
         values = [wo_info[0][i].strip().upper() for i in range(len(wo_info[0]))]
         workorder_info = {key:value for key,value in zip(keys,values)}
