@@ -31,6 +31,7 @@ This repository contains code examples of various workstations and features I wa
 [![PgAdmin](https://img.shields.io/badge/-PgAdmin-darkblue?style=flat&logo=postgresql&logoColor=white&link=https://github.com/Quananhle/Full-Stack-in-Django)](https://github.com/Quananhle/Full-Stack-in-Django)
 
 **Version Control & Continuous Integration:**
-[![Sourcetree](https://img.shields.io/badge/Sourcetree-darkblue?style=flat&logo=sourcetree&logoColor=white&link=https://github.com/Quananhle)](https://github.com/Quananhle)
+[![Git](https://img.shields.io/badge/-Git-black?style=flat&logo=git&link=https://github.com/Quananhle)](https://github.com/Quananhle) 
 [![Gitlab](https://img.shields.io/badge/-Gitlab-black?style=flat&logo=gitlab&link=https://github.com/Quananhle)](https://github.com/Quananhle) 
 [![GitHub](https://img.shields.io/badge/-GitHub-181717?style=flat&logo=github&link=https://github.com/Quananhle)](https://github.com/Quananhle)
+[![Sourcetree](https://img.shields.io/badge/Sourcetree-darkblue?style=flat&logo=sourcetree&logoColor=white&link=https://github.com/Quananhle)](https://github.com/Quananhle)
