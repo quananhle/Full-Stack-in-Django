@@ -40,6 +40,7 @@ class PrintSerialNumber(LoginRequiredMixin, generic.ListView):
         db_obj = DataLayer()
         db_conn = db_obj.connect()
 
+        # Input to be validated by a stored procedure on database
         id = data.get('workorder_id').strip().upper()
         sp_params = db_obj.createparams(f"PRINT-SN,{id}")
         sp_result = db_obj.runstoredprocedure(db_conn,'lrm_wo_status_validation_sp', sp_params)
@@ -51,11 +52,13 @@ class PrintSerialNumber(LoginRequiredMixin, generic.ListView):
         if not 'workorder_id' in data:
             context.update({'result': 'Missing Workorder ID Parameter'})
             return JsonResponse(context, safe=False, status=400)
-
+        
+        # If not passed validation, stored procedure in database to return the exception notice to backend and send to frontend to display
         if sp_result:
             error.update({'result':sp_result})
             return JsonResponse(error, safe=False, status=400)            
         
+        # If passed validation, get related data of input using a function in database
         sp_params = db_obj.createparams(f"{id}")
         wo_info = db_obj.runfunction(db_conn,'lrm_get_wo_info', sp_params)
 
