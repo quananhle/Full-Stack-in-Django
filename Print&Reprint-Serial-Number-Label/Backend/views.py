@@ -299,3 +299,35 @@ def print_label(serial_number, workorder_type, profile):
     message = 'Successfully Generated Label: {}'.format(object_value)
     sn_object.sadmin_log('CREATE', 'Print SN Label', 'PASS', object_value, message, profile)
     return context
+
+
+#=============================================Service Functions===================================================================#
+def get_bt_data(self, print_type):
+    if not print_type:
+        self.error = 'Print Type cannot be empty/null.'
+        return
+    self.printType = print_type
+
+    try:            
+        labelConfigObject = LabelConfig.objects.filter(object_type=self.printType).values('label_id', 'body_qty', 'printer_id', 'printer_webservice')
+        if not labelConfigObject:
+            self.error = f"Entered print type: { print_type } was not found."
+            return
+
+    except LabelConfig.DoesNotExist:
+        self.error.append = f"Entered print type: { print_type } was not found."
+        return           
+
+    for item in labelConfigObject:
+        self.templateName = item.get('label_id')
+        self.printerName = item.get('printer_id')
+        self.printServiceUrl = item.get('printer_webservice')
+        self.bodyQty = item.get('body_qty')
+
+    if not self.templateName or not self.printerName or not self.printServiceUrl or not self.bodyQty:
+        self.error = 'Label Config missing attributes'
+        return
+
+    print(self.templateName, self.printerName, self.printServiceUrl, self.bodyQty)
+
+    return 
