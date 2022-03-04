@@ -423,3 +423,63 @@ def set_print(self):
         return
 
     return
+
+def createparams(self, params):
+        e_count = params.count(',')
+        if e_count != 0:
+            p_list = params.split(',')
+            p_tuple = tuple(p_list)
+            value = f"{p_tuple}"
+        else:
+            value = f"('{ params }')"
+        return value
+
+def runstoredprocedure(self, conn, spname, tparams):
+    value = None
+    cursor = conn.cursor()
+
+    try:
+        if len(spname) == 0:
+            raise Exception('Missing data layer name element')
+        if len(tparams) == 0:
+            raise Exception('Missing data layer elements')
+
+        query = f"call {spname} {tparams}"
+        # print(query)
+        sp_result = cursor.execute(query)
+        rows = cursor.fetchall()
+        for row in rows:
+            value = row[0]
+
+        conn.commit()
+
+        return value
+
+    except Exception as inst:
+        self.sp_error = str(inst)
+        return self.sp_error
+
+def runfunction(self, conn, fname, tparams):
+    results = None
+
+    try:
+        cursor = conn.cursor()
+
+        if len(fname) == 0:
+            raise Exception('Missing data layer name element')
+        if len(tparams) == 0:
+            raise Exception('Missing data layer elements')
+
+        query = f"select * from {fname} {tparams}"
+
+        cursor.execute(query)
+
+        results = cursor.fetchall()
+
+        cursor.close()
+
+        return results
+
+    except Exception as inst:
+        self.fn_error = str(inst)
+        return
