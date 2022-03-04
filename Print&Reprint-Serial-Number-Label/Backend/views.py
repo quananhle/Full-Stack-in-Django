@@ -331,3 +331,95 @@ def get_bt_data(self, print_type):
     print(self.templateName, self.printerName, self.printServiceUrl, self.bodyQty)
 
     return 
+
+def get_data(self, object_value, transtype):
+    if not object_value:
+        self.error = 'Print Type cannot be empty/null.'
+        return
+    if not transtype:
+        self.error = 'Print Transtype cannot be empty/null.'
+        return
+
+    self.transtype = transtype
+    self.value = object_value
+
+    try:
+        params = self.database.createparams(f"{self.transtype},{self.value}")
+        data_result = self.database.runfunction(self.database_conn, 'print_get_data_pack_pallet_fn', params)
+    except Exception as e:
+        self.error = str(e)
+        return                
+
+    self.header.update(
+        {"printer_name": self.printerName,
+        "template_name": self.templateName}
+    )
+
+    for item in data_result:
+        if item[0] == 'HEADER':                
+            if item[1] == 'variable_name':
+                self.variableName = item[2]
+            else:
+                self.header.update({item[1]: item[2]})
+        if item[0] == 'BODY':
+            self.body.append(item[2])
+
+    self.pageFrom = 1
+
+    if not self.body:
+        self.pageTo = 1
+    else:            
+        self.dataQty = len(self.body)
+
+        self.pageTo = math.ceil(self.dataQty / self.bodyQty)                
+
+        sn = {}
+        sn_list = []
+        x = 1
+
+        for i in range(0, self.dataQty):
+            sn.update({self.variableName + str(x): self.body[i]})
+            if len(sn) == self.bodyQty or i == self.dataQty - 1:
+                sn_list.append(sn.copy())
+                x = 1
+                sn.clear()
+            else:
+                x += 1                
+
+    dataList = {}
+    while self.pageFrom <= self.pageTo:
+        self.header.update(
+            {"pageFrom": self.pageFrom, "pageTo": self.pageTo}
+        )
+        if not self.body:
+            dataList = self.header
+        else:
+            dataList = { **self.header, **sn_list[self.pageFrom - 1] }
+
+        self.data.append(json.dumps(dataList.copy()))
+        dataList.clear()
+
+        self.pageFrom += 1
+
+
+    for item in self.data:
+        print(item)                   
+
+    return
+    
+def set_print(self):
+    statusCode = None
+    responseText = None
+    try:
+        for item in self.data:
+            wsPrintRequest = requests.post(self.printServiceUrl, data = item)
+            statusCode = wsPrintRequest.status_code
+            responseText = json.loads(wsPrintRequest.content.decode('utf-8-sig'))['Messages'][0]['Text']
+            responseText = responseText.split('\r')[0]
+            self.printResult.update({'status': statusCode, 'message': responseText})
+
+    except Exception as e:
+        self.error = str(e)
+        return
+
+    return
