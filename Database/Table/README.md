@@ -22,6 +22,9 @@
 ### shp_pallet
 ![Pallet](https://user-images.githubusercontent.com/35042430/158689672-233e6283-3bc4-4900-843e-8917fbe61f23.png)
 
+### shp_palletdeliverynumber
+![Pallet Delivery Number](https://user-images.githubusercontent.com/35042430/158690301-e357c15c-4c27-4363-981e-0ab9ebd4d336.png)
+
 ### shp_palletpack
 ![Pallet Pack](https://user-images.githubusercontent.com/35042430/158689556-108a996c-9e7c-4390-b4ff-1940b64a9970.png)
 
