@@ -1,0 +1,46 @@
+-- Drop table
+
+-- DROP TABLE public.shp_salesorder;
+
+CREATE TABLE public.shp_salesorder (
+	salesorder_id varchar(50) NOT NULL,
+	plant_code varchar(100) NOT NULL,
+	customer_shipto varchar(100) NOT NULL,
+	customer_soldto varchar(100) NOT NULL,
+	salesorder_type varchar(255) NOT NULL,
+	customer_po varchar(255) NOT NULL,
+	customer_name varchar(255) NOT NULL,
+	customer_name_alt varchar(255) NOT NULL,
+	ship_priority varchar(100) NOT NULL,
+	sap_create_date timestamptz NULL,
+	sap_change_date timestamptz NULL,
+	customer_reference varchar(255) NOT NULL,
+	completed_date timestamptz NULL,
+	completed int4 NULL,
+	ship_hold int4 NULL,
+	ship_cancelled int4 NULL,
+	purchase_order_date timestamptz NULL,
+	ship_date timestamptz NULL,
+	ship_method varchar(255) NULL,
+	creator varchar(100) NULL,
+	create_date timestamptz NULL,
+	last_update timestamptz NOT NULL,
+	last_update_by varchar(50) NULL,
+	ship_to_city varchar(255) NULL,
+	ship_to_country varchar(255) NULL,
+	ship_to_region varchar(255) NULL,
+	ship_to_street varchar(255) NULL,
+	ship_to_zipcode varchar(255) NULL,
+	bill_to_address varchar(255) NULL,
+	bill_to_city varchar(255) NULL,
+	bill_to_country varchar(255) NULL,
+	bill_to_name varchar(255) NULL,
+	bill_to_region varchar(255) NULL,
+	bill_to_zipcode varchar(255) NULL,
+	incoterm varchar(10) NULL,
+	carrier varchar(255) NULL,
+	ship_to_name varchar(255) NULL,
+	service_level varchar(255) NULL,
+	CONSTRAINT shp_salesorder_pkey PRIMARY KEY (salesorder_id)
+);
+CREATE INDEX shp_salesorder_salesorder_id_e87fc161_like ON public.shp_salesorder USING btree (salesorder_id varchar_pattern_ops);
