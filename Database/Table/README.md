@@ -2,7 +2,10 @@
 ![Material Master](https://user-images.githubusercontent.com/35042430/158684506-a91e07e8-43e3-4ce2-9b3b-ebbf4317e17a.png)
 
 ### mfg_pack
-![image](https://user-images.githubusercontent.com/35042430/158689855-5178f19a-df7c-4cb8-a875-d93af20bb702.png)
+![Pack](https://user-images.githubusercontent.com/35042430/158689855-5178f19a-df7c-4cb8-a875-d93af20bb702.png)
+
+### mfg_packserialnumber
+![Pack Serial Number](https://user-images.githubusercontent.com/35042430/158690077-679d650b-9b66-4062-8ed8-bb2e331cc665.png)
 
 ### mfg_serialnumber
 ![Serial Number](https://user-images.githubusercontent.com/35042430/156664198-eab96444-5fb0-4d37-8e27-bcd6e4ebcb00.png)
@@ -11,7 +14,7 @@
 ![Work Order](https://user-images.githubusercontent.com/35042430/156664511-aab82582-0fa0-4d97-855b-35126dabff30.png)
 
 ### mfg_wostatuscategory
-![Work Order Status Category](https://user-images.githubusercontent.com/35042430/158685494-fa5afe57-4044-4a5d-a5d4-767bcc838cda.png)
+![Workorder Status Category](https://user-images.githubusercontent.com/35042430/158685494-fa5afe57-4044-4a5d-a5d4-767bcc838cda.png)
 
 ### shp_deliverynumber
 ![Delivery Number](https://user-images.githubusercontent.com/35042430/158684781-f681733c-36b9-499e-8f63-c91d887f4ecf.png)
