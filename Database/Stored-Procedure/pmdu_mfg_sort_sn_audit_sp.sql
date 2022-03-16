@@ -25,18 +25,18 @@ AS $procedure$
 
 	    IF transtype = 'UPDATE-COUNTER' THEN
 			UPDATE mfg_auditsortedtracking SET counter = counter - 1, validated_sn = CASE 
-		   																				WHEN (validated_sn IS NULL OR validated_sn = '') THEN v_serial_number
-		   																				ELSE CONCAT(validated_sn, ',', v_serial_number) 
-		   																			 END 
-																	, last_edit_date = now(), last_edit_by = v_user WHERE value = v_workorder_id;
+													WHEN (validated_sn IS NULL OR validated_sn = '') THEN v_serial_number
+													ELSE CONCAT(validated_sn, ',', v_serial_number) 
+												 END 
+										, last_edit_date = now(), last_edit_by = v_user WHERE value = v_workorder_id;
 	    END IF;	    
 
 	    IF transtype = 'UPDATE-VALIDATED-SN-LIST-ONLY' THEN
 	    	UPDATE mfg_auditsortedtracking SET validated_sn = CASE 
-		   														WHEN (validated_sn IS NULL OR validated_sn = '') THEN v_serial_number
-		   														ELSE CONCAT(validated_sn, ',', v_serial_number) 
-		   													  END
-										 	 , last_edit_date = now(), last_edit_by = v_user WHERE value = v_workorder_id;
+									WHEN (validated_sn IS NULL OR validated_sn = '') THEN v_serial_number
+									ELSE CONCAT(validated_sn, ',', v_serial_number) 
+								  END
+						 , last_edit_date = now(), last_edit_by = v_user WHERE value = v_workorder_id;
 	    END IF;
 	END;
 $procedure$
