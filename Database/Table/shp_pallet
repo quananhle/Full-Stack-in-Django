@@ -1,0 +1,27 @@
+-- Drop table
+
+-- DROP TABLE public.shp_pallet;
+
+CREATE TABLE public.shp_pallet (
+	weight_unit varchar(15) NULL,
+	measure_unit varchar(15) NULL,
+	pallet_id varchar(200) NOT NULL,
+	status int4 NOT NULL,
+	current_qty int4 NOT NULL,
+	"full" int4 NULL,
+	full_date timestamptz NULL,
+	wh_id varchar(200) NULL,
+	height numeric(12, 2) NULL,
+	length numeric(12, 2) NULL,
+	width numeric(12, 2) NULL,
+	weight numeric(12, 2) NULL,
+	gross_weight numeric(12, 2) NULL,
+	net_weight numeric(12, 2) NULL,
+	volume_weight numeric(12, 2) NULL,
+	total_weight numeric(12, 2) NULL,
+	last_update timestamptz NOT NULL,
+	last_update_by varchar(50) NULL,
+	entrance_wh timestamptz NULL,
+	CONSTRAINT shp_pallet_pkey PRIMARY KEY (pallet_id)
+);
+CREATE INDEX shp_pallet_pallet_id_b9f835b8_like ON public.shp_pallet USING btree (pallet_id varchar_pattern_ops);
