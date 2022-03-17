@@ -1,6 +1,3 @@
-### mfg_auditsortedconfig
-![Audit Sorted Config](https://user-images.githubusercontent.com/35042430/158834018-1abab3e1-e13a-4fc7-bb9e-bc22dc56b8e0.png)
-
 -- Drop table
 
 -- DROP TABLE public.mfg_auditsortedconfig;
