@@ -1,3 +1,6 @@
+### mfg_auditsortedtracking
+![Audit Sorted Tracking](https://user-images.githubusercontent.com/35042430/158837177-d19d0305-0016-4fdf-a62e-61a7b365838b.png)
+
 ### mfg_auditsortedconfig
 ![Audit Sorted Config](https://user-images.githubusercontent.com/35042430/158834018-1abab3e1-e13a-4fc7-bb9e-bc22dc56b8e0.png)
 
