@@ -3,8 +3,8 @@ CREATE OR REPLACE PROCEDURE public.mfg_material_details_update_sp(transtype text
 AS $procedure$
 DECLARE
 	t_error_message		text;
-	t_keypart 			int;
-	t_scan_category_id  text;
+	t_keypart 		int;
+	t_scan_category_id  	text;
 	t_mask_rule 		text;
 	v_scan_type 		text;
 	BEGIN
