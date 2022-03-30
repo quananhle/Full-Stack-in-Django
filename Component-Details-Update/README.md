@@ -62,3 +62,15 @@ Run database stored procedure [mfg_material_details_update_sp](https://github.co
 Return JSON serialized response to the [template](https://github.com/Quananhle/Full-Stack-in-Django/blob/main/Component-Details-Update/Frontend/model_detail.html).
 
 ### Templates:
+
+![image](https://user-images.githubusercontent.com/35042430/160882120-e1c5c826-086a-4413-ba80-748e41814840.png)
+
+Getting requests from client
+
+![image](https://user-images.githubusercontent.com/35042430/160882290-e06c8b20-432c-4a2f-b6ff-ae7e78e4113a.png)
+
+Using AJAX to send data to Views in POST request
+
+![image](https://user-images.githubusercontent.com/35042430/160883588-eb649ffc-f54d-4576-9225-2991082c324f.png)
+
+Using AJAX to fetch the JSON response received from Views
