@@ -14,7 +14,7 @@ __Otherwise, error message is displayed to inform user at which condition proces
 ![image](https://user-images.githubusercontent.com/35042430/160862892-63d3b007-c7cf-4f59-8731-190921078794.png)
 ![image](https://user-images.githubusercontent.com/35042430/160862910-57f976ec-c491-41bb-a0ba-41e1cf857fce.png)
 
-__Models:__ instead of using ORM (object-relational mapper) feature provided by Django, application is getting data directly using database functions for validating, displaying, and formatting data, and database stored procedures for validating and updating data. The reason behind is for simple maintenances processes as IT and Engineer teams also have access to the database and can modify to the needs accordingly, while only SWE team can provide support in the application source code, and every update in the source code requires more resources.
+__Models:__ instead of using ```ORM (object-relational mapper)``` feature provided by Django, application is getting data directly using database functions for validating, displaying, and formatting data, and database stored procedures for validating and updating data. The reason behind is for simple maintenances processes as IT and Engineer teams also have access to the database and can modify to the needs accordingly, while only SWE team can provide support in the application source code, and every update in the source code requires more resources.
 
 ## Designs
 
@@ -30,7 +30,7 @@ __HTTP GET attributes__
 
 ![image](https://user-images.githubusercontent.com/35042430/160867823-a71ee59a-17e3-42e6-9d79-4657543a6f88.png)
 
-Run database function to select data. Using the Django shortcut functions render() to render the template model_details.html and returns an HttpResponse object with that rendered result from database function to the client-end/browser.
+Run database function to select data. Using the Django shortcut functions ```render()``` to render the template model_details.html and returns an ```HttpResponse``` object with that rendered result from database function to the [template](https://github.com/Quananhle/Full-Stack-in-Django/blob/main/Component-Details-Update/Frontend/model_detail.html).
 
 ```{SQL}
 CREATE OR REPLACE FUNCTION public.mfg_model_manager_update_fn(v_model_id text)
@@ -55,4 +55,8 @@ __HTTP POST attributes__
 
 ![image](https://user-images.githubusercontent.com/35042430/160873640-b6a00f5e-62a9-4ed9-90cf-011789cf36d9.png)
 
+Run database stored procedure [mfg_material_details_update_sp](https://github.com/Quananhle/Full-Stack-in-Django/blob/main/Database/Stored-Procedure/mfg_material_details_update_sp.sql) to update data. And then run database function [mfg_model_manager_update_fn](https://github.com/Quananhle/Full-Stack-in-Django/blob/main/Database/Function/mfg_model_manager_update_fn.sql) to select data again to display the updating results.  
 
+![image](https://user-images.githubusercontent.com/35042430/160875096-3b9dc7a6-af09-446d-9c74-f96fd7d0f327.png)
+
+Return JSON serialized data to the [template](https://github.com/Quananhle/Full-Stack-in-Django/blob/main/Component-Details-Update/Frontend/model_detail.html).
