@@ -10,7 +10,9 @@ __Otherwise, error message is displayed to inform user at which condition proces
 ![image](https://user-images.githubusercontent.com/35042430/160862892-63d3b007-c7cf-4f59-8731-190921078794.png)
 ![image](https://user-images.githubusercontent.com/35042430/160862910-57f976ec-c491-41bb-a0ba-41e1cf857fce.png)
 
-__Templates:__
+### Views:
+
+__HTTP GET attributes__
 
 ![image](https://user-images.githubusercontent.com/35042430/160866633-19fea563-cec0-4f63-8b20-a3b0cd64f5a2.png)
 
