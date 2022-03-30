@@ -9,6 +9,8 @@ __Otherwise, error message is displayed to inform user at which condition proces
 
 ## Architecture
 
+![image](https://user-images.githubusercontent.com/35042430/160871143-9cadc838-c4bb-465d-be0b-75ec65829ca0.png)
+
 ![image](https://user-images.githubusercontent.com/35042430/160862892-63d3b007-c7cf-4f59-8731-190921078794.png)
 ![image](https://user-images.githubusercontent.com/35042430/160862910-57f976ec-c491-41bb-a0ba-41e1cf857fce.png)
 
@@ -23,8 +25,8 @@ __HTTP GET attributes__
 ![image](https://user-images.githubusercontent.com/35042430/160866633-19fea563-cec0-4f63-8b20-a3b0cd64f5a2.png)
 
 ![image](https://user-images.githubusercontent.com/35042430/160867823-a71ee59a-17e3-42e6-9d79-4657543a6f88.png)
-Run database function to select data. Using the Django shortcut functions render() to render the template model_details.html and returns an HttpResponse object with that rendered result from database function to the client.
 
+Run database function to select data. Using the Django shortcut functions render() to render the template model_details.html and returns an HttpResponse object with that rendered result from database function to the client-end/browser.
 
 ```{SQL}
 CREATE OR REPLACE FUNCTION public.mfg_model_manager_update_fn(v_model_id text)
@@ -43,6 +45,7 @@ AS $function$
 $function$;
 ```
 
+__HTTP POST attributes__
 
 
 
