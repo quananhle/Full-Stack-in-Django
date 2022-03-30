@@ -23,7 +23,7 @@ __HTTP GET attributes__
 ![image](https://user-images.githubusercontent.com/35042430/160866633-19fea563-cec0-4f63-8b20-a3b0cd64f5a2.png)
 
 ![image](https://user-images.githubusercontent.com/35042430/160867823-a71ee59a-17e3-42e6-9d79-4657543a6f88.png)
-
+Run database function to select data. Using the Django shortcut functions render() to render the template model_details.html and returns an HttpResponse object with that rendered result from database function to the client.
 
 
 ```{SQL}
@@ -42,6 +42,8 @@ AS $function$
 	END;
 $function$;
 ```
+
+
 
 
 
