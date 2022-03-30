@@ -79,4 +79,4 @@ Using AJAX to send data to Views in POST request
 
 ![image](https://user-images.githubusercontent.com/35042430/160883588-eb649ffc-f54d-4576-9225-2991082c324f.png)
 
-Using AJAX to fetch the JSON response received from Views
+Using AJAX to fetch the success JSON response received from Views
