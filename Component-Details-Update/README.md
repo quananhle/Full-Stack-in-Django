@@ -16,7 +16,7 @@ __HTTP GET attributes__
 
 ![image](https://user-images.githubusercontent.com/35042430/160866633-19fea563-cec0-4f63-8b20-a3b0cd64f5a2.png)
 
-
+![image](https://user-images.githubusercontent.com/35042430/160867823-a71ee59a-17e3-42e6-9d79-4657543a6f88.png)
 
 __Models:__ instead of using ORM (object-relational mapper), application is getting data directly using database functions for validating, displaying, and formatting data, and database stored procedures for validating and updating data. The reason behind is for simple maintenances processes as IT and Engineer teams also have access to the database and can modify to the needs accordingly, while only SWE team can provide support in the application source code, and every update in the source code requires more resources.
 
