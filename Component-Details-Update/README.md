@@ -57,6 +57,8 @@ __HTTP POST attributes__
 
 Run database stored procedure [mfg_material_details_update_sp](https://github.com/Quananhle/Full-Stack-in-Django/blob/main/Database/Stored-Procedure/mfg_material_details_update_sp.sql) to update data. And then run database function [mfg_model_manager_update_fn](https://github.com/Quananhle/Full-Stack-in-Django/blob/main/Database/Function/mfg_model_manager_update_fn.sql) to select data again to display the updating results.  
 
+---
+
 ![image](https://user-images.githubusercontent.com/35042430/160875096-3b9dc7a6-af09-446d-9c74-f96fd7d0f327.png)
 
 Return JSON serialized response to the [template](https://github.com/Quananhle/Full-Stack-in-Django/blob/main/Component-Details-Update/Frontend/model_detail.html).
@@ -67,9 +69,13 @@ Return JSON serialized response to the [template](https://github.com/Quananhle/F
 
 Getting requests from client
 
+--- 
+
 ![image](https://user-images.githubusercontent.com/35042430/160882290-e06c8b20-432c-4a2f-b6ff-ae7e78e4113a.png)
 
 Using AJAX to send data to Views in POST request
+
+---
 
 ![image](https://user-images.githubusercontent.com/35042430/160883588-eb649ffc-f54d-4576-9225-2991082c324f.png)
 
