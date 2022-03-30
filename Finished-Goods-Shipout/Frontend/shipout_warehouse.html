@@ -1,0 +1,201 @@
+ {% extends 'main/index.html' %}
+{% block content %}
+{% load static %}
+{% load mathfilters %}
+<main class="page-content">
+    <div class="container-fluid">
+        <nav aria-label="breadcrumb" class="breadcrumb-style">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}"><span class="fa fa-home breadcrumb-icon"></span>Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'shp:shp_home' %}"><span class="fa breadcrumb-icon"></span>Shipping</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ viewTitle }}</li>
+        </ol>
+        </nav>
+
+        <div class="content-layout">                                       
+            <div class="row">
+                <div class="col-md-12">   
+                    <div class="row">                                                
+                        <div class="col-md-7">     
+                             
+                            <form class="form-inline" method="POST"> 
+                                {% csrf_token %}         
+                                <div class="form-group mx-sm-3 mb-2">
+                                    <label for="carrier_id">Material Document:</label>
+                                    <input type="text" class="form-control" id="material_id" name="material_id" value ='{{material_id}}' Required style="margin-left: 5px;">
+                                </div>             
+                                <div class="col-md-2 align-self-end" style="padding-bottom: 3px;">
+                                    <button id="shipout" type="button" class="btn btn-primary mb-2" style="display: none;">Ship Out</button>
+                                </div>
+                                <div class="form-group mx-sm-3 mb-2">
+                                    <div class="mx-sm-3 mb-2">
+                                        <img id="spinner" src="{% static 'main_theme/img/spinner.gif' %}" style="width: 35px;display: none;">
+                                    </div>
+                                </div>  
+                                <div class="col-md-6 align-self-center">   
+                                    <div  id="errorMsgModal" class="w-100 p-3" >
+                                        {% if errorMsg  %}                                  
+                                            <div class="alert alert-danger" role="alert" style="margin: 0;">          
+                                                <p class="mb-0" id="errorMsg">{{ errorMsg }}</p>
+                                            </div>
+                                        {% endif %}
+                                    </div>  
+                                </div> 
+                            </form>
+                        </div>   
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12 ">
+                            <div class="form-row">
+                                <div class="form-inline col-md-12 content-layout" style="padding-bottom: 0;padding-top: 1rem;">                            
+                                    
+                                    <div class="col-md-3 ">
+                                        <div class="card border-primary mb-3" >    
+                                            <div class="card-header" style="padding-right: .5rem;padding-left: .5rem;padding-top: 0;padding-bottom: 0;text-align: center;"><strong>Total PN Qty</strong></div>                            
+                                            <div class="card-body text-primary" style="padding: .5rem;">
+                                                <p class="card-text" style="text-align: center;" id="total_pn_qty"><strong>{% if total_pn_qty %} {{total_pn_qty}} {% else %} &nbsp {% endif %}</strong> </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 ">
+                                        <div class="card border-primary mb-3" >    
+                                            <div class="card-header" style="padding-right: .5rem;padding-left: .5rem;padding-top: 0;padding-bottom: 0;text-align: center;"><strong>Total Pallets</strong></div>                            
+                                            <div class="card-body text-primary" style="padding: .5rem;">
+                                                <p class="card-text" style="text-align: center;" id="total_pallets"><strong>{% if total_pallets %} {{total_pallets}} {% else %} &nbsp {% endif %}</strong> </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 ">
+                                        <div class="card border-success  mb-3" >    
+                                            <div class="card-header" style="padding-right: .5rem;padding-left: .5rem;padding-top: 0;padding-bottom: 0;text-align: center;"><strong>From SLOC</strong></div>                            
+                                            <div class="card-body text-success " style="padding: .5rem;">
+                                                <p class="card-text" style="text-align: center;" id="sloc_from"><strong>{% if sloc_from %} {{sloc_from}} {% else %} &nbsp {% endif %}</strong> </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 ">
+                                        <div class="card border-success  mb-3" >    
+                                            <div class="card-header" style="padding-right: .5rem;padding-left: .5rem;padding-top: 0;padding-bottom: 0;text-align: center;"><strong>To SLOC</strong></div>                            
+                                            <div class="card-body text-success " style="padding: .5rem;">
+                                                <p class="card-text" style="text-align: center;" id="sloc_to"><strong>{% if sloc_to %} {{sloc_to}} {% else %} &nbsp {% endif %}</strong> </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                                                                        
+                        </div>                        
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 ">
+                            <div class="form-row">
+                                <div class="form-inline col-md-12 content-layout" style="padding-bottom: 0;padding-top: 1rem;">                            
+                                    
+                                    <div class="col-md-4" style="width:800px; margin:0 auto;">
+                                        <div class="card border-primary mb-3" >    
+                                            <div class="card-header" style="padding-right: .5rem;padding-left: .5rem;padding-top: 0;padding-bottom: 0;text-align: center;"><strong>Sold To</strong></div>                            
+                                            <div class="card-body text-primary" style="padding: .5rem;">
+                                                <p class="card-text" style="text-align: center; white-space: pre-wrap;" id="sold_to"><strong>{% if sold_to %} {{sold_to}} {% else %} &nbsp {% endif %}</strong> </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4" style="width:800px; margin:0 auto;">
+                                        <div class="card border-primary mb-3" >    
+                                            <div class="card-header" style="padding-right: .5rem;padding-left: .5rem;padding-top: 0;padding-bottom: 0;text-align: center;"><strong>Ship To</strong></div>                            
+                                            <div class="card-body text-primary" style="padding: .5rem;">
+                                                <p class="card-text" style="text-align: center; white-space: pre-wrap;" id="ship_to"><strong>{% if ship_to %} {{ship_to}} {% else %} &nbsp {% endif %}</strong> </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                                                                        
+                        </div>                        
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 ">
+                            <div class="form-row">
+                                <div class="form-group col-md-12 content-layout">
+                                    <table class="table table-hover tbl-font table-striped table-bordered table-sm align-act-buttons" id="tracking-table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">No</th>
+                                                <th scope="col">Pallet</th>
+                                                <th scope="col">PN</th>
+                                                <th scope="col">COO</th>            
+                                                <th scope="col">Qty</th>                                        
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {%if pallets_info_list %}
+                                                {% with pallets_info_list as pal %}
+                                                    {% for a in pal %}
+                                                        <tr>
+                                                            <td>{{ forloop.counter }}</td>
+                                                            <td>{{a.0}}</td>
+                                                            <td>{{a.1}}</td>
+                                                            <td>{{a.2}}</td>
+                                                            <td>{{a.3}}</td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                {% endwith %}
+                                            {% endif %}   
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>    
+                    </div>                    
+                </div>                
+            </div>            
+        </div>
+
+        <div class="row">            
+            <div class="container" id="errorMsgModal" >
+                {% if errorMsg  %} 
+                    <div class="row justify-content-md-center">
+                        <div class="col-md-auto">
+                            <div class="alert alert-danger" role="alert">          
+                                <p class="mb-0" id="errorMsg">{{ errorMsg }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>                        
+        </div>
+
+        <footer class="text-center">
+            <div class="mb-2">
+                <small>© 2021 Fii HOU SWD</small>
+            </div>
+        </footer>
+        <input type="hidden" id="profile" Value={{ user.get_username }}>        
+    </div>
+</main>
+
+{% load static %}
+<script src="{% static 'apps/wh_shipout/shipout.js' %}"></script>
+
+<script type="text/javascript"> 
+
+    $(document).ready(function () {
+        $('#tracking-table').DataTable();
+    });
+
+    $("#material_id").keypress(function(event ) {
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if (keycode == 13) {
+            event.preventDefault();        
+            spo.loadMaterialDocInfo();
+        }
+    });
+
+    $("#shipout").click(function() {
+        console.log("Shipout");
+        spo.shipout();
+    });
+
+</script>
+
+{% endblock %}
