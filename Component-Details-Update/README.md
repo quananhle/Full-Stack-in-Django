@@ -18,6 +18,10 @@ __Models:__ instead of using ORM (object-relational mapper) feature provided by 
 
 ## Designs
 
+### URLs:
+
+![image](https://user-images.githubusercontent.com/35042430/160872973-5dd5764a-2db3-4451-a72d-b27ea33102e6.png)
+
 ### Views:
 
 __HTTP GET attributes__
@@ -47,6 +51,8 @@ $function$;
 
 __HTTP POST attributes__
 
+![image](https://user-images.githubusercontent.com/35042430/160872652-8aab1011-1632-4b8c-b3c3-94188b7ba58e.png)
 
+![image](https://user-images.githubusercontent.com/35042430/160873640-b6a00f5e-62a9-4ed9-90cf-011789cf36d9.png)
 
 
