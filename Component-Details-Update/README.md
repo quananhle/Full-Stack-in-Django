@@ -60,3 +60,5 @@ Run database stored procedure [mfg_material_details_update_sp](https://github.co
 ![image](https://user-images.githubusercontent.com/35042430/160875096-3b9dc7a6-af09-446d-9c74-f96fd7d0f327.png)
 
 Return JSON serialized response to the [template](https://github.com/Quananhle/Full-Stack-in-Django/blob/main/Component-Details-Update/Frontend/model_detail.html).
+
+### Templates:
