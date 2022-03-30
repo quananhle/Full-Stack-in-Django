@@ -51,8 +51,6 @@ class WarehouseShipoutView (LoginRequiredMixin, generic.ListView):
         viewTitle = 'Ship Out Warehouse'
         context.update({'viewTitle': viewTitle})      
 
-
-        
         db_obj = DataLayer()
         db_conn = db_obj.connect()
 
@@ -135,7 +133,6 @@ def wh_shipout_finish(request):
             error.update({'result':'Missing Username.'})
             return JsonResponse(error, safe=False, status=400)
 
-
         sp_result = None
         sp_params = DataLayer().createparams(f"SHIPOUT,{material_id}")
         sp_result = DataLayer().runstoredprocedure(DataLayer().connect(),'wh_md_status_validation_sp', sp_params)
@@ -178,41 +175,3 @@ def wh_shipout_finish(request):
             return JsonResponse(result, safe=False, status=400)			
 
         return JsonResponse(context, safe=False, status=200)
-
-class MaterialDocumentStatus(LoginRequiredMixin, View):
-    template_name = 'transfer/md_status.html'
-
-    def get(self, *args, **kwargs):
-        context = {}
-        userId = None
-        userName = None
-        db_obj = DataLayer()
-        db_conn = db_obj.connect()    
-        viewTitle = 'Material Document Status'
-        context.update({'viewTitle': viewTitle})
-
-        if db_conn is None:
-            context.update(
-                { 'errorMsg': 'There is a problem with Database connection, Call IT' } 
-            ) 
-            return render(self.request, self.template_name, context)
-
-        current_url = self.request.resolver_match.url_name
-
-        params = db_obj.createparams('GET_MD_ALL')
-        fn_result = db_obj.runfunction(db_conn, 'wh_get_md_status_fn', params)
-
-        if not fn_result:
-            context.update({'errorMsg': "No Material Documents were found."})
-            return render(self.request, self.template_name, context)
-
-        print(fn_result)
-
-        context.update(
-            {                
-                'viewTitle': viewTitle,
-                'uploadList': fn_result
-            }
-        )
-
-        return render(self.request, self.template_name, context)
