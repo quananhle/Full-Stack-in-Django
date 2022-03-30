@@ -1,4 +1,4 @@
-## Component Details Update Feature
+# Component Details Update Feature
 
 ![image](https://user-images.githubusercontent.com/35042430/160862125-0f30e87e-2fa7-4e98-af8a-1981b0a8110d.png)
 
