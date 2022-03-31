@@ -13,7 +13,7 @@ This repository contains code examples of various workstations and features I wa
   [![JavaScript](https://img.shields.io/badge/-JavaScript-black?style=flat&logo=javascript&link=https://github.com/Quananhle/Full-Stack-in-Django)](https://github.com/Quananhle/Full-Stack-in-Django) 
   [![HTML5](https://img.shields.io/badge/-HTML5-E34F26?style=flat&logo=html5&logoColor=white&link=https://github.com/Quananhle/Full-Stack-in-Django)](https://github.com/Quananhle/Full-Stack-in-Django) 
   [![CSS3](https://img.shields.io/badge/-CSS3-1572B6?style=flat&logo=css3&link=https://github.com/Quananhle/Full-Stack-in-Django)](https://github.com/Quananhle/Full-Stack-in-Django) 
-  [![Bootstrap](https://img.shields.io/badge/-Bootstrap-purple?style=flat&logo=bootstrap&link=https://github.com/Quananhle/Full-Stack-in-Django)](https://github.com/Quananhle/Full-Stack-in-Django) 
+  [![Bootstrap](https://img.shields.io/badge/-Bootstrap-purple?style=flat&logo=bootstrap&logoColor=white&link=https://github.com/Quananhle/Full-Stack-in-Django)](https://github.com/Quananhle/Full-Stack-in-Django) 
   [![jQuery](https://img.shields.io/badge/jQuery-yellow?style=flat&logo=jQuery&logoColor=white&link=https://github.com/Quananhle/Full-Stack-in-Django)](https://github.com/Quananhle/Full-Stack-in-Django) 
 
 > __DBMS:__ 
