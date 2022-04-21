@@ -91,7 +91,7 @@ def lrm_print_sn(request):
             error.update({'result':sp_result})
             return JsonResponse(error, safe=False, status=400)
 
-        sn = [data.get('serial_number').strip()]
+        sn = data.get('serial_number').strip()
         tp = data.get('order_type').strip()
         pf = data.get('profile').strip()
         ot = data.get('object_type').strip()        
