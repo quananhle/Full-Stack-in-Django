@@ -141,7 +141,7 @@ def lrm_print_sn(request):
             'log_message' : log
         })
 
-        message = 'Successfully Generated All Labels of Work Order: {}'.format(id)
+        message = 'Successfully Generated Label {} of Work Order {}'.format(sn, id)
         sn_object.sadmin_log('CREATE', 'Print {} Serial Number Label'.format(tp), 'PASS', sn, message, pf)
 
         context.update ({
@@ -234,7 +234,7 @@ def lrm_print_all_sn(request):
             'log_message' : log
         })
 
-        message = 'Successfully Generated All Labels of Work Order: {}'.format(id)
+        message = 'Successfully Generated All Labels of Work Order {}'.format(id)
         sn_object.sadmin_log('CREATE', 'Print {} Serial Number Label'.format(tp), 'PASS', serial_number, message, pf)
 
         context.update ({
