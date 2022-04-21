@@ -64,7 +64,7 @@ class PrintSerialNumber(LoginRequiredMixin, generic.ListView):
             'order_type'         : workorder_info['order_type'],
             'object_type'        : workorder_info['object_type'],
         })
-        
+        print ('Context: ', context)
         return JsonResponse(context, safe=False)
 
 def lrm_print_sn(request):
@@ -94,8 +94,8 @@ def lrm_print_sn(request):
         sn = data.get('serial_number').strip()
         tp = data.get('order_type').strip()
         pf = data.get('profile').strip()
-        ot = data.get('object_type').strip()        
-        
+        ot = data.get('object_type').strip()
+ 
         object_type = ot
         trans_type  = ot
 
@@ -165,9 +165,9 @@ def lrm_print_all_sn(request):
         db_conn = db_obj.connect()
 
         id = data.get('workorder_id').strip()
-        tp = data.get('order_type').strip()
         sk = data.get('skuno').strip()
         pf = data.get('profile').strip()
+        tp = data.get('order_type').strip()
         ot = data.get('object_type').strip()
         
         if sk == '' or sk == None:
@@ -189,7 +189,7 @@ def lrm_print_all_sn(request):
             return JsonResponse(error, safe=False, status=400)
 
         for i in range (len(serial_number_list)):
-            serial_number = serial_number_list[i]
+            serial_number = serial_number_list[i][0]
             object_type = ot
             trans_type  = ot
 
