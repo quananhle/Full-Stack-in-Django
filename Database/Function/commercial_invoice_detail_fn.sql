@@ -4,17 +4,17 @@ CREATE OR REPLACE FUNCTION public.commercial_invoice_detail_fn(transtype charact
 AS $function$
 declare
 	v_salesorder		VARCHAR(50);
-	v_hst_usa			VARCHAR(50);
+	v_hst_usa		VARCHAR(50);
 	v_model_desc		VARCHAR(100);
-	v_coo				VARCHAR(10);
+	v_coo			VARCHAR(10);
 	v_unit_price		DECIMAL(15, 2);
-	v_shipqty			int;
+	v_shipqty		INT;
 
-	r_min 				integer := 0 ; 
-	r_max 				integer := 0 ;
+	r_min 			INTEGER := 0 ; 
+	r_max 			INTEGER := 0 ;
 
 	v_tmp_modelid		VARCHAR(50);
-	r					record;
+	r			RECORD;
 
 BEGIN
     IF transtype IS NULL THEN
