@@ -56,12 +56,12 @@ BEGIN
 	
 	WHILE (r_min <= r_max)
 	    LOOP
-	    	select _modelid into v_tmp_modelid from table_modelid_by_dn where _rowid = r_min;
+	    	SELECT _modelid INTO v_tmp_modelid FROM table_modelid_by_dn WHERE _rowid = r_min;
 		
-			select hst_usa into v_hst_usa from mfg_materialdatarelated where model_id = v_tmp_modelid;
-			if v_hst_usa is null then
-				v_hst_usa := 'N/A';
-			end if;
+		SELECT hst_usa INTO v_hst_usa FROM mfg_materialdatarelated WHERE model_id = v_tmp_modelid;
+		IF v_hst_usa IS NULL then
+			v_hst_usa := 'N/A';
+		END IF;
 		
 			select model_desc into v_model_desc from mfg_materialmaster where model_id = v_tmp_modelid;
 			
