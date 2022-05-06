@@ -57,7 +57,7 @@ class PrintCommercialInvoice():
 
     def format_dimension_row(self, template=None, row_list=[]):
         for row in row_list:
-            row_str= 'A'+row+':K'+row
+            row_str = 'A' + row + ':K' + row
             template.merge_cells(row_str)
 
     def write_to_template(self):
@@ -66,26 +66,20 @@ class PrintCommercialInvoice():
         try:
             docTemplatePath = settings.TEMPLATES_PATH
             genTemplatePath = settings.GEN_TEMPLATES_PATH_COMMERCIAL_INNVOICE_PMDU_1G
-            get_files_path = f"{settings.SERVER_IP}static/gen_documents/commercial_invoice/"
+            get_files_path  = f"{settings.SERVER_IP}static/gen_documents/commercial_invoice/"
 
             templateName = os.path.join(docTemplatePath, "Commercial_Invoice_Template.xlsx")
-
-            print(docTemplatePath)
-            print(templateName)
-
+            
             dn_hea_param = self.database.createparams(f"HEADER,{self.deliveryNumber}")
             dn_det_param = self.database.createparams(f"DETAIL,{self.deliveryNumber}")
 
-            print("Calling Invoice Header Function")
             headerData = self.database.runfunction(self.database_conn, 'msft_commercial_invoice_fn', dn_hea_param)
             headerData = self.database.runfunction(self.database_conn, 'msft_commercial_invoice_fn', dn_hea_param)
             if not headerData:
                 raise Exception(f"There is no data for: {self.deliveryNumber}")
 
-            print("Calling Invoice Details Function")
             detailData = self.database.runfunction(self.database_conn, 'msft_pmdu_commercial_invoice_detail_fn', dn_det_param)
 
-            print("Template Settings")
             detailLength = len(detailData)  # total amt of data to be written on invoice
             pageDetailLimit = 31.0  # current invoice limit per page (invoice has rows 20-31 available for possible data)
             pageCounter = 1
@@ -102,7 +96,6 @@ class PrintCommercialInvoice():
             get_files = []
             fileName = None
 
-            print("Load Invoice Template")
             while dataIterator < detailLength:
                 dimmension_row = []
                 template = load_workbook(templateName)
@@ -154,9 +147,6 @@ class PrintCommercialInvoice():
                     dataIterator = dataIterator + 1
                     if(dataIterator == detailLength):
                         break
-            print('Commercial Invoice Paths')
-            print(get_files)
-            print(get_files_path)
             result.update({
                 'fileList': get_files,
                 'filesPath': get_files_path
