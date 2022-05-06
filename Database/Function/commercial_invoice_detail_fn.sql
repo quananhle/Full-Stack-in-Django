@@ -45,19 +45,17 @@ BEGIN
        
        	v_coo := 'MX';
        
-       	select salesorder_id into v_salesorder
-       	from shp_deliverynumberdetail where deliverynumber_id = v_shiporderno;
+       	SELECT salesorder_id INTO v_salesorder FROM shp_deliverynumberdetail WHERE deliverynumber_id = v_shiporderno;
        
-		insert into table_modelid_by_dn (_modelid)
-		select distinct(ms.model_id) from mfg_serialnumber ms 
-		inner join shp_palletserialnumber b on ms.serial_number = b.serial_number 
-		where b.pallet_id in (select pallet_id from shp_palletdeliverynumber sp where deliverynumber_id = v_shiporderno);
+	INSERT INTO table_modelid_by_dn (_modelid)
+		SELECT DISTINCT (ms.model_id) FROM mfg_serialnumber ms INNER JOIN shp_palletserialnumber b ON ms.serial_number = b.serial_number 
+		WHERE b.pallet_id IN (SELECT pallet_id FROM shp_palletdeliverynumber sp WHERE deliverynumber_id = v_shiporderno);
+
+	SELECT MIN(_rowid) INTO r_min FROM table_modelid_by_dn;
+	SELECT MAX(_rowid) INTO r_max FROM table_modelid_by_dn;
 	
-		select MIN(_rowid) into r_min from table_modelid_by_dn;
-		select MAX(_rowid) into r_max from table_modelid_by_dn;
-	
-		WHILE (r_min <= r_max)
-	    loop
+	WHILE (r_min <= r_max)
+	    LOOP
 	    	select _modelid into v_tmp_modelid from table_modelid_by_dn where _rowid = r_min;
 		
 			select hst_usa into v_hst_usa from mfg_materialdatarelated where model_id = v_tmp_modelid;
