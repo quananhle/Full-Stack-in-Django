@@ -63,21 +63,21 @@ BEGIN
 			v_hst_usa := 'N/A';
 		END IF;
 		
-			select model_desc into v_model_desc from mfg_materialmaster where model_id = v_tmp_modelid;
-			
-			select unit_price into v_unit_price from shp_salesorderdetail where skuno_id = v_tmp_modelid and salesorder_id = v_salesorder; 
-		
-			select ship_qty into v_shipqty from shp_deliverynumberdetail where skuno_id = v_tmp_modelid and deliverynumber_id = v_shiporderno;
+		SELECT model_desc INTO v_model_desc FROM mfg_materialmaster WHERE model_id = v_tmp_modelid;
+
+		SELECT unit_price INTO v_unit_price FROM shp_salesorderdetail WHERE skuno_id = v_tmp_modelid AND salesorder_id = v_salesorder; 
+
+		SELECT ship_qty INTO v_shipqty FROM shp_deliverynumberdetail WHERE skuno_id = v_tmp_modelid AND deliverynumber_id = v_shiporderno;
 	    	
-	    	insert into table_comminvoice_detail (t_deliverynum, t_pn, t_hts_code, t_coo, t_desc, t_unit_price, t_qty, t_usd_amt)
-	    	values(v_shiporderno, v_tmp_modelid, v_hst_usa, v_coo, v_model_desc, v_unit_price, v_shipqty, v_shipqty * v_unit_price);
+	    	INSERT INTO table_comminvoice_detail (t_deliverynum, t_pn, t_hts_code, t_coo, t_desc, t_unit_price, t_qty, t_usd_amt)
+	    	VALUES (v_shiporderno, v_tmp_modelid, v_hst_usa, v_coo, v_model_desc, v_unit_price, v_shipqty, v_shipqty * v_unit_price);
 	    	    	
 	    	r_min := r_min + 1;
-	    end loop;
+	    END LOOP;
 	   
-		RETURN QUERY SELECT * FROM table_comminvoice_detail order by t_rowid; 
+		RETURN QUERY SELECT * FROM table_comminvoice_detail ORDER BY t_rowid; 
 		     
-   	end if;
+   	END IF;
    
 END; 
 $function$
