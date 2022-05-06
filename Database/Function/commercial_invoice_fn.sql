@@ -69,8 +69,7 @@ BEGIN
         	RAISE EXCEPTION 'There is no Truck Load data for this DN. Call IT';
         END IF;
 
-       	SELECT tracking_no, carrier INTO v_trackingno, v_carrier
-       	FROM shp_shipload WHERE deliverynumber_id = v_orderno AND salesorder_id = v_salesorder;
+       	SELECT tracking_no, carrier INTO v_trackingno, v_carrier FROM shp_shipload WHERE deliverynumber_id = v_orderno AND salesorder_id = v_salesorder;
 
        	SELECT bill_to_name, bill_to_address, bill_to_city, bill_to_region, bill_to_country, bill_to_zipcode, ship_to_name, ship_to_street, 
        		   ship_to_city, ship_to_region, ship_to_country, ship_to_zipcode, incoterm
@@ -78,20 +77,19 @@ BEGIN
        		 v_shipto_city, v_shipto_region, v_shipto_country, v_shipto_zip, v_incoterm
        	FROM shp_salesorder WHERE salesorder_id = v_salesorder;
 
-	    v_shipdate := TO_CHAR(NOW(), 'MM/DD/YYYY');
-	   	SELECT SUM(b.ship_qty*a.unit_price) INTO v_total_price FROM shp_salesorderdetail a INNER JOIN shp_deliverynumberdetail b ON a.salesorder_id = b.salesorder_id WHERE b.deliverynumber_id = v_orderno;
+	v_shipdate := TO_CHAR(NOW(), 'MM/DD/YYYY');
+	SELECT SUM(b.ship_qty*a.unit_price) INTO v_total_price FROM shp_salesorderdetail a INNER JOIN shp_deliverynumberdetail b ON a.salesorder_id = b.salesorder_id WHERE b.deliverynumber_id = v_orderno;
 
-	    SELECT COUNT(0) INTO v_palletqty 
-	    FROM shp_palletdeliverynumber WHERE deliverynumber_id = v_orderno;
+	SELECT COUNT(0) INTO v_palletqty FROM shp_palletdeliverynumber WHERE deliverynumber_id = v_orderno;
 
-	   	SELECT SUM(gross_weight) INTO v_gross_weight
-	   	FROM shp_pallet WHERE pallet_id IN ( SELECT pallet_id FROM shp_palletdeliverynumber WHERE deliverynumber_id = v_orderno);
+	SELECT SUM(gross_weight) INTO v_gross_weight
+	FROM shp_pallet WHERE pallet_id IN ( SELECT pallet_id FROM shp_palletdeliverynumber WHERE deliverynumber_id = v_orderno);
 
-		v_billto_address := v_billto_address || ' ' || v_billto_city;
-		v_billto_region  := v_billto_region || ', ' || v_billto_country || ' ' || v_billto_zip;
+	v_billto_address := v_billto_address || ' ' || v_billto_city;
+	v_billto_region  := v_billto_region || ', ' || v_billto_country || ' ' || v_billto_zip;
 
-		v_shipto_street := v_shipto_street || ', ' || v_shipto_city;
-		v_shipto_region := v_shipto_region || ', ' || v_shipto_country || ' ' || v_shipto_zip;
+	v_shipto_street := v_shipto_street || ', ' || v_shipto_city;
+	v_shipto_region := v_shipto_region || ', ' || v_shipto_country || ' ' || v_shipto_zip;
 
         DROP TABLE IF EXISTS table_comminvoice_header;
         CREATE TEMP TABLE table_comminvoice_header 
