@@ -20,31 +20,6 @@ class PrintCommercialInvoice():
         self.database_conn = self.database.connect()
 
     def format_template(self, template=None):
-        '''
-        #SOLD TO SECTION
-        template.merge_cells('B9:C9')
-        template.merge_cells('B10:C10')
-
-        #SHIP TO SECTION
-        template.merge_cells('A13:G13')
-        template.merge_cells('A14:G14')
-        template.merge_cells('A15:G15')
-
-        #SALES INFO SECTION
-        template.merge_cells('I19:J19')
-        template.merge_cells('I20:J20')
-        template.merge_cells('I21:J21')
-        template.merge_cells('I22:J22')
-        template.merge_cells('I23:J23')
-        template.merge_cells('I24:J24')
-        template.merge_cells('I25:J25')
-        template.merge_cells('I26:J26')
-        template.merge_cells('I27:J27')
-        template.merge_cells('I28:J28')
-        template.merge_cells('I29:J29')
-        template.merge_cells('I30:J30')
-        '''
-
         # '''
         #SHIPPER SECTION
         template.merge_cells('A7:B7')
