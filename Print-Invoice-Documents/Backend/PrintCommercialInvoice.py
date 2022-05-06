@@ -19,7 +19,6 @@ class PrintCommercialInvoice():
         self.database_conn = self.database.connect()
 
     def format_template(self, template=None):
-        # '''
         #SHIPPER SECTION
         template.merge_cells('A7:B7')
         template.merge_cells('A8:B8')
@@ -55,7 +54,6 @@ class PrintCommercialInvoice():
         template.merge_cells('I28:J28')
         template.merge_cells('I29:J29')
         template.merge_cells('I30:J30')
-        # '''
 
     def format_dimension_row(self, template=None, row_list=[]):
         for row in row_list:
