@@ -8,7 +8,6 @@ from srv.database.db_actions import *
 from openpyxl import *
 from datetime import datetime
 
-
 class PrintCommercialInvoice():
     def __init__(self, dn=None, template=None):
         self.deliveryNumber = dn
@@ -80,8 +79,6 @@ class PrintCommercialInvoice():
             dn_det_param = self.database.createparams(f"DETAIL,{self.deliveryNumber}")
 
             print("Calling Invoice Header Function")
-            # headerData = self.database.runfunction(self.database_conn, 'msft_pmdu_commercial_invoice_fn', dn_hea_param)
-            # headerData = self.database.runfunction(self.database_conn, 'msft_pmdu_commercial_invoice_fn', dn_hea_param)
             headerData = self.database.runfunction(self.database_conn, 'msft_commercial_invoice_fn', dn_hea_param)
             headerData = self.database.runfunction(self.database_conn, 'msft_commercial_invoice_fn', dn_hea_param)
             if not headerData:
