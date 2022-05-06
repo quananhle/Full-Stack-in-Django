@@ -65,7 +65,7 @@ class PrintCommercialInvoice():
 
         try:
             docTemplatePath = settings.TEMPLATES_PATH
-            genTemplatePath = settings.GEN_TEMPLATES_PATH_COMMERCIAL_INNVOICE_PMDU_1G
+            genTemplatePath = settings.GEN_TEMPLATES_PATH_COMMERCIAL_INNVOICE
             get_files_path  = f"{settings.SERVER_IP}static/gen_documents/commercial_invoice/"
 
             templateName = os.path.join(docTemplatePath, "Commercial_Invoice_Template.xlsx")
@@ -78,7 +78,7 @@ class PrintCommercialInvoice():
             if not headerData:
                 raise Exception(f"There is no data for: {self.deliveryNumber}")
 
-            detailData = self.database.runfunction(self.database_conn, 'msft_pmdu_commercial_invoice_detail_fn', dn_det_param)
+            detailData = self.database.runfunction(self.database_conn, 'commercial_invoice_detail_fn', dn_det_param)
 
             detailLength = len(detailData)  # total amt of data to be written on invoice
             pageDetailLimit = 31.0  # current invoice limit per page (invoice has rows 20-31 available for possible data)
