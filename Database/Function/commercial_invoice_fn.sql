@@ -51,17 +51,17 @@ BEGIN
 
     IF transtype = 'HEADER' THEN
 
-     	SELECT 'PCE Paragon Solutions(Mexico), S.A. de C.V.'   	INTO v_shipper_name;
-    	SELECT 'Avenida del Bosque no. 1170' 			INTO v_shipper_add1;
-    	SELECT 'Las Pintas C.P. 45619' 				INTO v_shipper_add2;
-    	SELECT 'San Pedro Tlaquepaque, Jalisco' 		INTO v_shipper_city;
-    	SELECT 'Mexico' 					INTO v_shipper_country;
-    	SELECT 'CLOUD NETWORK TECHNOLOGY SINGAPORE, PTE. LTD.' 	INTO v_seller_name;
-    	SELECT '54 Genting Lane # 03-05' 			INTO v_seller_add1;
-    	SELECT 'Ruby Land Complex, Singapore.' 			INTO v_seller_add2;
-    	SELECT 'Republic of Singapore.' 			INTO v_seller_country;
-    	SELECT 'C.P.349562' 					INTO v_seller_zipcode;
-    	SELECT 'TAX ID 201712311G' 				INTO v_seller_taxID;
+     	SELECT 'Elon Musk'				INTO v_shipper_name;
+    	SELECT 'Tesla Headquarters - Gigafactory Texas' INTO v_shipper_add1;
+    	SELECT '1 Tesla Road' 				INTO v_shipper_add2;
+    	SELECT 'Austin, TX 78725' 			INTO v_shipper_city;
+    	SELECT 'USA' 					INTO v_shipper_country;
+    	SELECT 'George Washington' 			INTO v_seller_name;
+    	SELECT '1600 Pennsylvania Avenue NW' 		INTO v_seller_add1;
+    	SELECT 'Washington, DC' 			INTO v_seller_add2;
+    	SELECT 'United States' 				INTO v_seller_country;
+    	SELECT '20500' 					INTO v_seller_zipcode;
+    	SELECT 'TAX ID 777888999' 			INTO v_seller_taxID;
    
     	SELECT salesorder_id INTO v_salesorder FROM shp_deliverynumber WHERE deliverynumber_id = v_orderno;
 
