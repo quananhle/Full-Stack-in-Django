@@ -68,9 +68,9 @@ class PrintCommercialInvoice():
         try:
             docTemplatePath = settings.TEMPLATES_PATH
             genTemplatePath = settings.GEN_TEMPLATES_PATH_COMMERCIAL_INNVOICE_PMDU_1G
-            get_files_path = f"{settings.SERVER_IP}static/gen_documents/commercial_invoice_pmdu_1g/"
+            get_files_path = f"{settings.SERVER_IP}static/gen_documents/commercial_invoice/"
 
-            templateName = os.path.join(docTemplatePath, "Commercial_Invoice_template_PMDU_1G.xlsx")
+            templateName = os.path.join(docTemplatePath, "Commercial_Invoice_Template.xlsx")
 
             print(docTemplatePath)
             print(templateName)
@@ -118,13 +118,10 @@ class PrintCommercialInvoice():
                     else:
                         template_worksheet[tuple[1]] = ''
 
-                # invoice_date= str(template_worksheet['J7'].value)
                 invoice_date= str(template_worksheet['J6'].value)
                 invoice_date_list= invoice_date.split("/")
                 invoice_date= str(invoice_date_list[2]+invoice_date_list[0]+invoice_date_list[1])
 
-                # new_filename = template_worksheet['J8'].value + '_' + datetime.now().strftime('%Y%m%d%H%M%S')
-                # template_worksheet['I3'] = 'Page ' + str(pageCounter) + ' of ' + str(numPages)
                 new_filename = template_worksheet['J7'].value + '_' + datetime.now().strftime('%Y%m%d%H%M%S')
 
                 for row in range(19, rowLimit):
