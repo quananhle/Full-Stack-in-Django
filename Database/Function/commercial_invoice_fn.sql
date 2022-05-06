@@ -103,10 +103,10 @@ BEGIN
 
         -------------------------------------------------
         -- SHIPPER SECTION
-       	INSERT INTO table_comminvoice_header (t_field, t_fieldname, t_fieldvalue) VALUES ('A7' , 'Shipper Name'	 	, BTRIM(v_shipper_name));
+       	INSERT INTO table_comminvoice_header (t_field, t_fieldname, t_fieldvalue) VALUES ('A7' , 'Shipper Name'	    , BTRIM(v_shipper_name));
        	INSERT INTO table_comminvoice_header (t_field, t_fieldname, t_fieldvalue) VALUES ('A8' , 'Shipper Address 1', BTRIM(v_shipper_add1));
        	INSERT INTO table_comminvoice_header (t_field, t_fieldname, t_fieldvalue) VALUES ('A9' , 'Shipper Address 2', BTRIM(v_shipper_add2));
-       	INSERT INTO table_comminvoice_header (t_field, t_fieldname, t_fieldvalue) VALUES ('A10', 'Shipper City'  	, BTRIM(v_shipper_city));
+       	INSERT INTO table_comminvoice_header (t_field, t_fieldname, t_fieldvalue) VALUES ('A10', 'Shipper City'     , BTRIM(v_shipper_city));
        	INSERT INTO table_comminvoice_header (t_field, t_fieldname, t_fieldvalue) VALUES ('A11', 'Shipper Country'  , BTRIM(v_shipper_country));
        	       
        -- SELLER SECTION
