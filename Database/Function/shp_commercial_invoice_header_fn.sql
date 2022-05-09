@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION public.shp_commercial_invoice_fn(transtype character varying, v_orderno character varying)
+CREATE OR REPLACE FUNCTION public.shp_commercial_invoice_header_fn(transtype character varying, v_orderno character varying)
  RETURNS TABLE(rowid integer, field character varying, fieldname character varying, fieldvalue character varying)
  LANGUAGE plpgsql
 AS $function$
