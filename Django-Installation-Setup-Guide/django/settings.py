@@ -165,7 +165,6 @@ LOGIN_REDIRECT_URL = '/accounts/login/'
 TEMPLATES_PATH = os.path.join(BASE_DIR, "srv/print/documents/templates")
 SECIIT_TEMPLATE_PATH = os.path.join(BASE_DIR, "srv/ftp/doc_templates")
 
-
 ### DOC PATHS ###
 GEN_TEMPLATES_PATH_COMMERCIAL_INNVOICE = os.path.join(BASE_DIR, "static/gen_documents/commercial_invoice")
 
