@@ -73,8 +73,8 @@ class PrintCommercialInvoice():
             dn_hea_param = self.database.createparams(f"HEADER,{self.deliveryNumber}")
             dn_det_param = self.database.createparams(f"DETAIL,{self.deliveryNumber}")
 
-            headerData = self.database.runfunction(self.database_conn, 'msft_commercial_invoice_fn', dn_hea_param)
-            headerData = self.database.runfunction(self.database_conn, 'msft_commercial_invoice_fn', dn_hea_param)
+            headerData = self.database.runfunction(self.database_conn, 'commercial_invoice_header_fn', dn_hea_param)
+            headerData = self.database.runfunction(self.database_conn, 'commercial_invoice_header_fn', dn_hea_param)
             if not headerData:
                 raise Exception(f"There is no data for: {self.deliveryNumber}")
 
