@@ -73,12 +73,12 @@ class PrintCommercialInvoice():
             dn_hea_param = self.database.createparams(f"HEADER,{self.deliveryNumber}")
             dn_det_param = self.database.createparams(f"DETAIL,{self.deliveryNumber}")
 
-            headerData = self.database.runfunction(self.database_conn, 'commercial_invoice_header_fn', dn_hea_param)
-            headerData = self.database.runfunction(self.database_conn, 'commercial_invoice_header_fn', dn_hea_param)
+            headerData = self.database.runfunction(self.database_conn, 'shp_commercial_invoice_header_fn', dn_hea_param)
+            headerData = self.database.runfunction(self.database_conn, 'shp_commercial_invoice_header_fn', dn_hea_param)
             if not headerData:
                 raise Exception(f"There is no data for: {self.deliveryNumber}")
 
-            detailData = self.database.runfunction(self.database_conn, 'commercial_invoice_detail_fn', dn_det_param)
+            detailData = self.database.runfunction(self.database_conn, 'shp_commercial_invoice_detail_fn', dn_det_param)
 
             detailLength = len(detailData)  # total amt of data to be written on invoice
             pageDetailLimit = 31.0  # current invoice limit per page (invoice has rows 20-31 available for possible data)
