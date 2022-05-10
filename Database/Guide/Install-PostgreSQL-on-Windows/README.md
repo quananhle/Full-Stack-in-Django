@@ -71,7 +71,7 @@ Step 10. Click the __Finish__ button to complete the PostgreSQL installation.
 
 ### 3) Verify the Installation
 
-There are several ways to verify the PostgreSQL installation. You can try to [connect to the PostgreSQL database server](https://www.postgresqltutorial.com/postgresql-getting-started/connect-to-postgresql-database/) from any client application e.g.,  psql and pgAdmin.
+There are several ways to verify the PostgreSQL installation. You can try to [connect to the PostgreSQL database server](https://github.com/Quananhle/Full-Stack-in-Django/tree/main/Database/Guide/Connect-To-a-PostgreSQL-Database-Server) from any client application e.g.,  psql and pgAdmin.
 
 The quick way to verify the installation is through the psql program.
 
@@ -87,7 +87,7 @@ Third, issue the command ```SELECT version();``` you will see the following outp
 
 ![image](https://www.postgresqltutorial.com/wp-content/uploads/2020/07/Install-PostgreSQL-psql-verification.png)
 
-Congratulation! you’ve successfully installed PostgreSQL database server on your local system. Let’s learn various ways to [connect to PostgreSQL database server](https://www.postgresqltutorial.com/postgresql-getting-started/connect-to-postgresql-database/).
+Congratulation! you’ve successfully installed PostgreSQL database server on your local system. Let’s learn various ways to [connect to PostgreSQL database server](https://github.com/Quananhle/Full-Stack-in-Django/tree/main/Database/Guide/Connect-To-a-PostgreSQL-Database-Server).
 
 
 
