@@ -28,4 +28,21 @@ __Step 4.__ Select software components to install:
 - pgAdmin 4 to install the PostgreSQL database GUI management tool.
 - Command Line Tools to install command-line tools such as psql, pg_restore, etc. These tools allow you to interact with the PostgreSQL database server using the command-line interface.
 - Stack Builder provides a GUI that allows you to download and install drivers that work with PostgreSQL.
+
 For the tutorial on this website, you don’t need to install Stack Builder so feel free to uncheck it and click the Next button to select the data directory:
+
+![image](https://www.postgresqltutorial.com/wp-content/uploads/2020/07/Install-PostgreSQL-12-Windows-Step-3.png)
+
+__Step 5.__ Select the database directory to store the data or accept the default folder. And click the Next button to go to the next step:
+
+![image](https://www.postgresqltutorial.com/wp-content/uploads/2020/07/Install-PostgreSQL-12-Windows-Step-4.png)
+
+__Step 6.__ Enter the password for the database superuser (postgres)
+
+PostgreSQL runs as a service in the background under a service account named postgres. If you already created a service account with the name postgres, you need to provide the password of that account in the following window.
+
+After entering the password, you need to retype it to confirm and click the Next button:
+
+![image](https://user-images.githubusercontent.com/35042430/167675587-187c9725-2c3e-49c4-860b-b537e153dde2.png)
+
+
