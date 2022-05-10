@@ -45,4 +45,37 @@ After entering the password, you need to retype it to confirm and click the Next
 
 ![image](https://user-images.githubusercontent.com/35042430/167675587-187c9725-2c3e-49c4-860b-b537e153dde2.png)
 
+__Step 7.__ Enter a port number on which the PostgreSQL database server will listen. The default port of PostgreSQL is 5432. You need to make sure that no other applications are using this port.
+
+![image](https://www.postgresqltutorial.com/wp-content/uploads/2020/07/Install-PostgreSQL-12-Windows-Step-6.png)
+
+__Step 8.__ Choose the default locale used by the PostgreSQL database. If you leave it as default locale, PostgreSQL will use the operating system locale. After that click the Next button.
+
+![image](https://www.postgresqltutorial.com/wp-content/uploads/2020/07/Install-PostgreSQL-12-Windows-Step-7.png)
+
+__Step 9.__ The setup wizard will show the summary information of PostgreSQL. You need to review it and click the Next button if everything is correct. Otherwise, you need to click the Back button to change the configuration accordingly.
+
+![image](https://www.postgresqltutorial.com/wp-content/uploads/2020/07/Install-PostgreSQL-12-Windows-Step-8.png)
+
+Now, you’re ready to install PostgreSQL on your computer. Click the __Next__ button to begin installing PostgreSQL.
+
+![image](https://user-images.githubusercontent.com/35042430/167675918-88bcf735-a9d7-4b26-b7a5-b59eafc5ab97.png)
+
+The installation may take a few minutes to complete.
+
+![image](https://www.postgresqltutorial.com/wp-content/uploads/2020/07/Install-PostgreSQL-12-Windows-Step-10.png)
+
+Step 10. Click the __Finish__ button to complete the PostgreSQL installation.
+
+![image](https://www.postgresqltutorial.com/wp-content/uploads/2020/07/Install-PostgreSQL-12-Windows-Step-11.png)
+
+### 3) Verify the Installation
+
+There are several ways to verify the PostgreSQL installation. You can try to connect to the PostgreSQL database server from any client application e.g.,  psql and pgAdmin.
+
+The quick way to verify the installation is through the psql program.
+
+First, click the psql application to launch it. The psql command-line program will display.
+
+
 
