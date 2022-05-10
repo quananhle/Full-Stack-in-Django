@@ -22,3 +22,10 @@ __Step 3.__ Specify installation folder, choose your own or keep the default fol
 
 ![image](https://www.postgresqltutorial.com/wp-content/uploads/2020/07/Install-PostgreSQL-12-Windows-Step-2.png)
 
+__Step 4.__ Select software components to install:
+
+- The PostgreSQL Server to install the PostgreSQL database server
+- pgAdmin 4 to install the PostgreSQL database GUI management tool.
+- Command Line Tools to install command-line tools such as psql, pg_restore, etc. These tools allow you to interact with the PostgreSQL database server using the command-line interface.
+- Stack Builder provides a GUI that allows you to download and install drivers that work with PostgreSQL.
+For the tutorial on this website, you don’t need to install Stack Builder so feel free to uncheck it and click the Next button to select the data directory:
