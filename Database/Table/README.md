@@ -25,6 +25,9 @@
 ### shp_deliverynumber
 ![Delivery Number](https://user-images.githubusercontent.com/35042430/158684781-f681733c-36b9-499e-8f63-c91d887f4ecf.png)
 
+### shp_deliverynumberdetails
+![Delivery Number Details](https://user-images.githubusercontent.com/35042430/167670246-f61ef114-0ee3-4b84-947b-80f6ca7575a7.png)
+
 ### shp_pallet
 ![Pallet](https://user-images.githubusercontent.com/35042430/158689672-233e6283-3bc4-4900-843e-8917fbe61f23.png)
 
