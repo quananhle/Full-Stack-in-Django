@@ -28,3 +28,44 @@ SELECT version();
 ```
 
 ![image](https://www.postgresqltutorial.com/wp-content/uploads/2020/07/Install-PostgreSQL-psql-verification.png)
+
+### 2) Connect to PostgreSQL database server using pgAdmin
+
+The second way to connect to a database is by using a pgAdmin application. The pgAdmin application allows you to interact with the PostgreSQL database server via an intuitive user interface.
+
+The following illustrates how to connect to a database using pgAdmin GUI application:
+
+First, launch the pgAdmin application.
+
+![image](https://www.postgresqltutorial.com/wp-content/uploads/2020/07/Connect-to-PostgreSQL-via-pgAdmin.png)
+
+The pgAdmin application will launch on the web browser as shown in the following picture:
+
+![image](https://www.postgresqltutorial.com/wp-content/uploads/2019/05/pgAdmin-4.png)
+
+Second, right-click the Servers node and select Create > Server… menu to create a server
+
+![image](https://www.postgresqltutorial.com/wp-content/uploads/2019/05/pgAdmin-create-a-server.png)
+
+Third, enter the server name e.g., PostgreSQL and click the Connection tab:
+
+![image](https://www.postgresqltutorial.com/wp-content/uploads/2019/05/pgAdmin-enter-the-server-name.png)
+
+Fourth, enter the host and password for the postgres user and click the Save button:
+
+![image](https://www.postgresqltutorial.com/wp-content/uploads/2019/05/pgAdmin-enter-host-and-user-info.png)
+
+Fifth, click on the Servers node to expand the server. By default, PostgreSQL has a database named postgres as shown below:
+
+![image](https://www.postgresqltutorial.com/wp-content/uploads/2019/05/pgAdmin-connected-to-PostgreSQL-Database-Server.png)
+
+Sixth, open the query tool by choosing the menu item Tool > Query Tool or click the lightning icon.
+
+![image](https://www.postgresqltutorial.com/wp-content/uploads/2019/05/pgAdmin-query-tool.png)
+
+Seventh, enter the query in the Query Editor, click the Execute button, you will see the result of the query displaying in the Data Output tab:
+
+![image](https://www.postgresqltutorial.com/wp-content/uploads/2020/07/Connect-to-PostgreSQL-via-pgAdmin-Execute-a-query-1.png)
+
+### Connect to PostgreSQL database from DBeaver
+### Connect to PostgreSQL database from Python
