@@ -71,11 +71,23 @@ Step 10. Click the __Finish__ button to complete the PostgreSQL installation.
 
 ### 3) Verify the Installation
 
-There are several ways to verify the PostgreSQL installation. You can try to connect to the PostgreSQL database server from any client application e.g.,  psql and pgAdmin.
+There are several ways to verify the PostgreSQL installation. You can try to [connect to the PostgreSQL database server](https://www.postgresqltutorial.com/postgresql-getting-started/connect-to-postgresql-database/) from any client application e.g.,  psql and pgAdmin.
 
 The quick way to verify the installation is through the psql program.
 
-First, click the psql application to launch it. The psql command-line program will display.
+First, click the ```psql``` application to launch it. The psql command-line program will display.
+
+![image](https://www.postgresqltutorial.com/wp-content/uploads/2020/07/Install-PostgreSQL-psql.png)
+
+Second, enter all the necessary information such as the server, database, port, username, and password. To accept the default, you can press __Enter__.  Note that you should provide the password that you entered during installing the PostgreSQL.
+
+![image](https://user-images.githubusercontent.com/35042430/167676456-f10239a3-78ef-48c8-98e9-a3ef2dcfd11e.png)
+
+Third, issue the command ```SELECT version();``` you will see the following output:
+
+![image](https://www.postgresqltutorial.com/wp-content/uploads/2020/07/Install-PostgreSQL-psql-verification.png)
+
+Congratulation! you’ve successfully installed PostgreSQL database server on your local system. Let’s learn various ways to [connect to PostgreSQL database server](https://www.postgresqltutorial.com/postgresql-getting-started/connect-to-postgresql-database/).
 
 
 
