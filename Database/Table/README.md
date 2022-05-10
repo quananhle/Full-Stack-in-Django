@@ -4,11 +4,11 @@
 ### mfg_auditsortedconfig
 ![Audit Sorted Config](https://user-images.githubusercontent.com/35042430/158834018-1abab3e1-e13a-4fc7-bb9e-bc22dc56b8e0.png)
 
-### mfg_materialmaster
-![Material Master](https://user-images.githubusercontent.com/35042430/158684506-a91e07e8-43e3-4ce2-9b3b-ebbf4317e17a.png)
-
 ### mfg_materialdatarelated
 ![Material Data Related](https://user-images.githubusercontent.com/35042430/167670796-90e13ccb-b54a-4dcf-92c0-655ea0a7b321.png)
+
+### mfg_materialmaster
+![Material Master](https://user-images.githubusercontent.com/35042430/158684506-a91e07e8-43e3-4ce2-9b3b-ebbf4317e17a.png)
 
 ### mfg_pack
 ![Pack](https://user-images.githubusercontent.com/35042430/158689855-5178f19a-df7c-4cb8-a875-d93af20bb702.png)
