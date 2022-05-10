@@ -14,3 +14,5 @@ psql is an interactive terminal program provided by PostgreSQL. It allows you to
 The following steps show you how to connect to the PostgreSQL database server via the psql program:
 
 First, launch the ```psql``` program and connect to the PostgreSQL Database Server using the ```postgres``` user:
+
+![image](https://www.postgresqltutorial.com/wp-content/uploads/2020/07/Install-PostgreSQL-psql.png)
