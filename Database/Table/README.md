@@ -37,5 +37,8 @@
 ### shp_salesorder
 ![Sales Order](https://user-images.githubusercontent.com/35042430/158689164-1bcba4b0-1e44-470d-854c-247cc79d70c9.png)
 
+### shp_salesorderdetails
+![Sales Order Details](https://user-images.githubusercontent.com/35042430/167669556-4a026e16-c68d-4e24-b73c-d44a641390bc.png)
+
 ### shp_shipload
-![image](https://user-images.githubusercontent.com/35042430/167443274-9f24b00d-3c55-401a-8e35-e3656093b482.png)
+![Ship Load](https://user-images.githubusercontent.com/35042430/167443274-9f24b00d-3c55-401a-8e35-e3656093b482.png)
