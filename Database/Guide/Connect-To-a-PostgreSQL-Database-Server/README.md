@@ -97,3 +97,34 @@ Second, use the following statement to [create a new database](https://github.co
 ```{SQL}
 CREATE DATABASE suppliers;
 ```
+
+#### Connect to the PostgreSQL database using the psycopg2
+
+To connect to the ```suppliers``` database, you use the ```connect()``` function of the ```psycopg2``` module.
+
+The ```connect()``` function creates a new database session and returns a new instance of the ```connection``` class. By using the ```connection``` object, you can create a new ```cursor``` to execute any SQL statements.
+
+To call the ```connect()``` function, you specify the PostgreSQL database parameters as a connection string and pass it to the function like this:
+
+```{Shell}
+conn = psycopg2.connect("dbname=suppliers user=postgres password=postgres")
+```
+
+Or you can use a list of keyword arguments:
+
+```{Python}
+conn = psycopg2.connect(
+    host="localhost",
+    database="suppliers",
+    user="postgres",
+    password="Abcd1234")
+```
+
+The following is the list of the connection parameters:
+
+- ```database```: the name of the database that you want to connect.
+user: the username used to authenticate.
+password: password used to authenticate.
+host: database server address e.g., localhost or an IP address.
+port: the port number that defaults to 5432 if it is not provided.
+To make it more convenient, you can use a configuration file to store all connection parameters.
