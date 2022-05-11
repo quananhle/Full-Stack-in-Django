@@ -242,3 +242,30 @@ Database connection closed.
 ```
 
 It means that you have successfully connected to the PostgreSQL database server.
+
+#### Troubleshooting
+
+The ```connect()``` function raises the DatabaseError exception if an error occurred. To see how it works, you can change the connection parameters in the ```database.ini``` file.
+
+For example, if you change the host to ```localhosts```, the program will output the following message:
+
+```{Shell}
+Connecting to the PostgreSQL database...
+could not translate host name "localhosts" to address: Unknown host
+```
+
+The following displays error message when you change the database to a database that does not exist e.g., ```supplier```:
+
+```{Shell}
+Connecting to the PostgreSQL database...
+FATAL: database "supplier" does not exist
+```
+
+If you change the user to ```postgress```, it will not be authenticated successfully as follows:
+
+```{Shell}
+Connecting to the PostgreSQL database...
+FATAL: password authentication failed for user "postgress"
+```
+
+In this tutorial, you have learned how to connect to the PostgreSQL database server from Python programs.
