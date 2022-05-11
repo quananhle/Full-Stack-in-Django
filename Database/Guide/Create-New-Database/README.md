@@ -56,6 +56,20 @@ __Step 2)__ In the pop-up,
 
 ![image](https://www.guru99.com/images/1/092818_0513_PostgreSQLC7.png)
 
+In this example, we entered ```quan_le``` as the name of the new database and postgres as the owner. Select the Definition tab to set the properties for the database:
+
+![image](https://www.postgresqltutorial.com/wp-content/uploads/2020/07/PostgreSQL-Create-Database-pgAdmin-Step-3.png)
+
+In the ```Definition``` tab, you can select the encoding, choose a template, tablespace, collation, character type, and connection limit.
+
+The ```Security``` tab allows you to define security labels and assign privileges. The ```Privileges``` tab allows you to assign privileges to a role.
+
+![image](https://user-images.githubusercontent.com/35042430/167922652-4f70daa6-7850-4055-a8c6-41876478f966.png)
+
+Finally, click the Save button to create the ```quan_le``` database. You will see the ```quan_le``` listed on the database list:
+
+![image](https://user-images.githubusercontent.com/35042430/167922435-50ee40c0-a05e-4251-bbb5-dbc15e317781.png)
+
 __Step 3)__ DB is created and shown in the Object tree.
 
 ![image](https://www.guru99.com/images/1/092818_0513_PostgreSQLC8.png)
