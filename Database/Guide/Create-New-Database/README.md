@@ -79,10 +79,6 @@ TABLESPACE = tablespace_name
 CONNECTION LIMIT = max_concurrent_connection
 ```
 
-
-
-
-
 |Option	                  |Description  |
 |--                       |--           |
 |db_name                  |	Use this option to specify the name of the new database that you want to create. Although, you need to make sure that the database must be unique because If you attempt to create a new database with the same name as an existing database, PostgreSQL will display an error.|
@@ -93,3 +89,12 @@ CONNECTION LIMIT = max_concurrent_connection
 |Ctype                    |	It specifies the character classification for the new database. It affects the categorization, e.g., digit, lower and upper.|
 |tablespace_name          |	Using this option you can specify the tablespace name for the new database. The default is the template database’s tablespace.|
 |max_concurrent_connection|	Use this option to specify the maximum concurrent connections to the new database. The default is -1, i.e., unlimited.|
+
+Common Errors while using the ```createdb``` command
+
+|Error	                    |Description  |
+|--                         |--           |
+|createdb command not found.|	This kind of error may occur when PostgreSQL is not installed correctly. At that time, you need need to run createdb command from your PostgreSQL installation path.|
+|No such file in the server is running locally and accepting connections on Unix domain socket.|	This error occurs when PostgreSQL Server is not started properly, or it was not started where the createdb command wants it to start.|
+|FATAL role “usr name” does not exist|	This error may occur if the PostgreSQL user account is created which are different from system user accounts.|
+|Permission denied to create a database|	If the PostgreSQL account is created does not have permission to create a database In this case, you need to grant permission to the associated users to access create command.|
