@@ -39,3 +39,57 @@ __Step 5)__ To connect to a Database use PostgreSQL database command
 ![image](https://www.guru99.com/images/1/092818_0513_PostgreSQLC5.png)
 
 Prompt changes to ```guru99``` which signifies that we are connected to database ```guru99``` and can perform operations like create table, trigger, execute SQL on it.
+
+![image](https://user-images.githubusercontent.com/35042430/167919026-f60239a6-525c-4f96-8401-84bb9ad30bff.png)
+
+### PostgreSQL Create Database using pgAdmin 4
+
+__Step 1)__ In the Object Tree, right click and select create a database to Postgres create database
+
+![image](https://www.guru99.com/images/1/092818_0513_PostgreSQLC6.png)
+
+__Step 2)__ In the pop-up,
+
+1. Enter Database Name
+2. Comment if any database – optional
+3. Click Save
+
+![image](https://www.guru99.com/images/1/092818_0513_PostgreSQLC7.png)
+
+__Step 3)__ DB is created and shown in the Object tree.
+
+![image](https://www.guru99.com/images/1/092818_0513_PostgreSQLC8.png)
+
+__Step 4)__ The right pane gives you the SQL used to create the Database.
+
+![image](https://www.guru99.com/images/1/092818_0513_PostgreSQLC9.png)
+
+#### Complete syntax to create a database
+
+Here is complete Syntax to create a DB in PostgreSQL
+
+```{Shell}
+CREATE DATABASE db_name
+OWNER =  role_name
+TEMPLATE = template			
+ENCODING = encoding			
+LC_COLLATE = collate			
+LC_CTYPE = ctype
+TABLESPACE = tablespace_name
+CONNECTION LIMIT = max_concurrent_connection
+```
+
+
+
+
+
+|Option	                  |Description  |
+|--                       |--           |
+|db_name                  |	Use this option to specify the name of the new database that you want to create. Although, you need to make sure that the database must be unique because If you attempt to create a new database with the same name as an existing database, PostgreSQL will display an error.|
+|role_name                |	Use this parameter to define the the role name for the user who will own the new database. Default is postgres|
+|Template                 |	You can specify database template name from which you want to creates the new database.|
+|Encoding                 |	This parameter allows specifying character set encoding for the new database. Default is UTF8|
+|Collate                  |	The collation parameter specifies the sort order of strings which affect the result of the ORDER BY clause while using a SELECT statement.|
+|Ctype                    |	It specifies the character classification for the new database. It affects the categorization, e.g., digit, lower and upper.|
+|tablespace_name          |	Using this option you can specify the tablespace name for the new database. The default is the template database’s tablespace.|
+|max_concurrent_connection|	Use this option to specify the maximum concurrent connections to the new database. The default is -1, i.e., unlimited.|
