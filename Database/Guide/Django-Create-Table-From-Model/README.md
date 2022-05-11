@@ -14,3 +14,22 @@ As we know django comes with ORM(Object Relational Mapper) so, we do not need to
 
 In the above code we have imported the "```models```" module which contains the functionality related to database(i.e ORM). "```models.Model```" is a base class for all model classes in django application. Each model class represents a database table.
 
+### Create migrations for above django model
+
+To create migrations for the django application we have to run the below command.
+
+```{Shell}
+python manage.py makemigrations <app name>
+```
+
+above command will create migrations for the model in the directory "```migrations```" under the application directory.
+
+### Apply migrations to create table in the database
+
+To create table in the database for our django application we have to apply above created models using below command
+
+```{Shell}
+python manage.py migrate <app name>
+```
+
+After running above command it creates the table in the database. To write django models we need to know the different fields provided by django to use correct field for the table.
