@@ -69,3 +69,22 @@ Seventh, enter the query in the Query Editor, click the Execute button, you will
 
 ### Connect to PostgreSQL database from DBeaver
 ### Connect to PostgreSQL database from Python
+
+__Summary:__ in this tutorial, you will learn how to connect to the PostgreSQL database server in the Python program using the psycopg database adapter.
+
+Install the ```psycopg2``` module
+First, visit the [psycopg2 package here](https://pypi.org/project/psycopg2/).
+
+Second, use the following command line from the terminal:
+
+```{Shell}
+pip install psycopg2
+```
+
+If you have downloaded the source package into your computer, you can use the setup.py as follows:
+
+```{Shell}
+python setup.py build
+sudo python setup.py install
+```
+
