@@ -215,3 +215,30 @@ def connect():
 if __name__ == '__main__':
     connect()
 ```
+
+How it works.
+
+- First, read database connection parameters from the ```database.ini``` file.
+- Next, create a new database connection by calling the ```connect()``` function.
+- Then, create a new ```cursor``` and execute an SQL statement to get the PostgreSQL database version.
+- After that, read the result set by calling the  ```fetchone()``` method of the cursor object.
+- Finally, close the communication with the database server by calling the ```close()``` method of the cursor and connection objects.
+
+#### Execute the connect.py file
+
+To execute the ```connect.py``` file, you use the following command:
+
+```{Shell}
+python connect.py
+```
+
+You will see the following output:
+
+```{Shell}
+Connecting to the PostgreSQL database...
+PostgreSQL database version:
+('PostgreSQL 12.3, compiled by Visual C++ build 1914, 64-bit',)
+Database connection closed.
+```
+
+It means that you have successfully connected to the PostgreSQL database server.
