@@ -129,3 +129,89 @@ The following is the list of the connection parameters:
 - ```port```: the port number that defaults to 5432 if it is not provided.
 
 To make it more convenient, you can use a configuration file to store all connection parameters.
+
+The following shows the contents of the ```database.ini``` file:
+
+```{Python}
+[postgresql]
+host=localhost
+database=suppliers
+user=postgres
+password=SecurePas$1
+```
+
+By using the ```database.ini```, you can change the PostgreSQL connection parameters when you move the code to the production environment without modifying the code.
+
+Notice that if you git, you need to add the ```database.ini``` to the ```.gitignore``` file to not committing the sensitive information to the public repo like github. The ```.gitignore``` file will be like this:
+
+```{Shell}
+database.ini
+```
+
+The following ```config()``` function read the ```database.ini``` file and returns connection parameters. The ```config()``` function is placed in the ```config.py``` file:
+
+```{Python}
+#!/usr/bin/python
+from configparser import ConfigParser
+
+
+def config(filename='database.ini', section='postgresql'):
+    # create a parser
+    parser = ConfigParser()
+    # read config file
+    parser.read(filename)
+
+    # get section, default to postgresql
+    db = {}
+    if parser.has_section(section):
+        params = parser.items(section)
+        for param in params:
+            db[param[0]] = param[1]
+    else:
+        raise Exception('Section {0} not found in the {1} file'.format(section, filename))
+
+    return db
+```
+
+The following ```connect()``` function connects to the ```suppliers``` database and prints out the PostgreSQL database version.
+
+```{Python}
+#!/usr/bin/python
+import psycopg2
+from config import config
+
+def connect():
+    """ Connect to the PostgreSQL database server """
+    conn = None
+    try:
+        # read connection parameters
+        params = config()
+
+        # connect to the PostgreSQL server
+        print('Connecting to the PostgreSQL database...')
+        conn = psycopg2.connect(**params)
+		
+        # create a cursor
+        cur = conn.cursor()
+        
+	# execute a statement
+        print('PostgreSQL database version:')
+        cur.execute('SELECT version()')
+
+        # display the PostgreSQL database server version
+        db_version = cur.fetchone()
+        print(db_version)
+       
+	# close the communication with the PostgreSQL
+        cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+            print('Database connection closed.')
+
+
+if __name__ == '__main__':
+    connect()
+```
