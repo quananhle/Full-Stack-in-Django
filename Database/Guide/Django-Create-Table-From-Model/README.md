@@ -16,7 +16,24 @@ In the above code we have imported the "```models```" module which contains the 
 
 ### Create migrations for above django model
 
-To create migrations for the django application we have to run the below command.
+To include the app in our project, we need to add a reference to its configuration class in the ```INSTALLED_APPS``` setting. The ```StocksConfig``` class is in the ```stock/apps.py``` file, so its dotted path is ```'stock.apps.StocksConfig'```. Edit the ```mysite/settings.py``` file and add that dotted path to the ```INSTALLED_APPS``` setting. It’ll look like this:
+
+```{Python}
+mysite/settings.py
+INSTALLED_APPS = [
+    'stock.apps.StocksConfig',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+]
+```
+
+![image](https://user-images.githubusercontent.com/35042430/167946460-27891bb5-05e1-472e-b9ba-7217b45fc23d.png)
+
+Now Django knows to include the stock app. To create migrations for the django application we have to run the below command. Let’s run another command:
 
 ```{Shell}
 python manage.py makemigrations <app name>
@@ -33,3 +50,6 @@ python manage.py migrate <app name>
 ```
 
 After running above command it creates the table in the database. To write django models we need to know the different fields provided by django to use correct field for the table.
+
+![image](https://user-images.githubusercontent.com/35042430/167946032-14715c9f-8c35-4443-b4d3-722f46ad36cb.png)
+
