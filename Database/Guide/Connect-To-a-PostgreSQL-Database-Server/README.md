@@ -88,3 +88,12 @@ python setup.py build
 sudo python setup.py install
 ```
 
+#### Create a new database
+
+First, log in to the PostgreSQL database server using any client tool such as pgAdmin or psql.
+
+Second, use the following statement to [create a new database](https://github.com/Quananhle/Full-Stack-in-Django/tree/main/Database/Guide/Create-New-Database) named ```suppliers``` in the PostgreSQL database server.
+
+```{SQL}
+CREATE DATABASE suppliers;
+```
