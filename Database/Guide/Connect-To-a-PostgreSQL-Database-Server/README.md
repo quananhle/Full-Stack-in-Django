@@ -68,6 +68,11 @@ Seventh, enter the query in the Query Editor, click the Execute button, you will
 ![image](https://www.postgresqltutorial.com/wp-content/uploads/2020/07/Connect-to-PostgreSQL-via-pgAdmin-Execute-a-query-1.png)
 
 ### Connect to PostgreSQL database from DBeaver
+
+![image](https://user-images.githubusercontent.com/35042430/167923909-31146d75-00b6-4620-bbac-2906c432a32c.png)
+
+![image](https://user-images.githubusercontent.com/35042430/167924065-d04719f1-3ec5-4d19-be42-98fae9ca946a.png)
+
 ### Connect to PostgreSQL database from Python
 
 __Summary:__ in this tutorial, you will learn how to connect to the PostgreSQL database server in the Python program using the psycopg database adapter.
