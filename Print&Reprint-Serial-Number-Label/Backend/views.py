@@ -27,7 +27,7 @@ class PrintSerialNumber(LoginRequiredMixin, generic.ListView):
             error = self.request.GET['errorMsg']
             if error:
                 context.update({ 'errorMsg': error })
-        
+
         return render(self.request, self.template_name, context)
 
     def post(self, *args, **kwargs):
@@ -36,11 +36,10 @@ class PrintSerialNumber(LoginRequiredMixin, generic.ListView):
         data = self.request.POST       
         viewTitle = 'Print SN Label'
         context.update({'viewTitle': viewTitle})
-        
+
         db_obj = DataLayer()
         db_conn = db_obj.connect()
 
-        # Input to be validated by a stored procedure on database
         id = data.get('workorder_id').strip().upper()
         sp_params = db_obj.createparams(f"PRINT-SN,{id}")
         sp_result = db_obj.runstoredprocedure(db_conn,'lrm_wo_status_validation_sp', sp_params)
@@ -52,21 +51,18 @@ class PrintSerialNumber(LoginRequiredMixin, generic.ListView):
         if not 'workorder_id' in data:
             context.update({'result': 'Missing Workorder ID Parameter'})
             return JsonResponse(context, safe=False, status=400)
-        
-        # If not passed validation, stored procedure in database to return the exception notice to backend and send to frontend to display
+
         if sp_result:
             error.update({'result':sp_result})
             return JsonResponse(error, safe=False, status=400)            
         
-        # If passed validation, get related data of input using a function in database
         sp_params = db_obj.createparams(f"{id}")
         wo_info = db_obj.runfunction(db_conn,'lrm_get_wo_info', sp_params)
-        # Get all serial number in workorder id using a database function
+
         sp_params = db_obj.createparams(f"{id}")
         sn_list = db_obj.runfunction(db_conn,'lrm_get_sn_by_wo', sp_params)
-        
-        # Send values received from database functions in JSON response to display in frontend
-        keys = ['workorder_id', 'status_id', 'target_qty', 'skuno', 'production_version', 'sn_from', 'sn_to']
+
+        keys = ['workorder_id', 'status_id', 'target_qty', 'skuno', 'production_version', 'sn_from', 'sn_to', 'order_type', 'object_type']
         values = [wo_info[0][i].strip().upper() for i in range(len(wo_info[0]))]
         workorder_info = {key:value for key,value in zip(keys,values)}
 
@@ -75,9 +71,11 @@ class PrintSerialNumber(LoginRequiredMixin, generic.ListView):
             'wo_info'            : wo_info,
             'serial_number_list' : sn_list,
             'production_version' : workorder_info['production_version'],
-            'skuno'              : workorder_info['skuno']
+            'skuno'              : workorder_info['skuno'],
+            'order_type'         : workorder_info['order_type'],
+            'object_type'        : workorder_info['object_type'],
         })
-        
+
         return JsonResponse(context, safe=False)
 
 def lrm_print_sn(request):
@@ -88,6 +86,8 @@ def lrm_print_sn(request):
         data = request.POST  
 
         db_obj = DataLayer()
+        printService = PrintLabel()
+        sn_object = SerialNumber()
         db_conn = db_obj.connect()
 
         id = data.get('workorder_id').strip().upper()
@@ -102,18 +102,66 @@ def lrm_print_sn(request):
             error.update({'result':sp_result})
             return JsonResponse(error, safe=False, status=400)
 
-        sn = data.get('serial_number').strip().upper()
-        wt = data.get('workorder_type').strip().upper()
-        pf = data.get('profile').strip().upper()
+        sn = data.get('serial_number').strip()
+        tp = data.get('order_type').strip()
+        pf = data.get('profile').strip()
+        ot = data.get('object_type').strip()
 
-        response = print_label(sn, wt, pf)      
+        object_type = ot
+        trans_type  = ot
+
+        log = 'Print {} Serial Number Label: Failed to Set Up Printer'.format(tp)
+        printService.get_bt_data(object_type)
+        if printService.error:
+            context.update ({
+                'message' : printService.error, 
+                'result' : 'FAIL', 
+                'sn' : sn,
+                'log_message' : log
+            })
+            sn_object.sadmin_log('EXCEPTION', 'Print {} Serial Number Label'.format(tp), 'FAIL', sn, log, pf)
+            return context
+
+        printService.get_data(sn, trans_type)
+        if printService.error:
+            context.update ({
+                'message' : printService.error, 
+                'result' : 'FAIL', 
+                'sn' : sn,
+                'log_message' : log
+            })
+            sn_object.sadmin_log('EXCEPTION', 'Print {} Serial Number Label'.format(tp), 'FAIL', sn, log, pf)
+            return context
+
+        log = 'Print {} Serial Number Label: Failed to Connect Printer'.format(tp)
+        printService.set_print()
+        if printService.error:
+            context.update ({
+                'message' : printService.error, 
+                'result' : 'FAIL', 
+                'sn' : sn,
+                'log_message' : log
+            })
+            sn_object.sadmin_log('EXCEPTION', 'Print {} Serial Number Label'.format(tp), 'FAIL', sn, log, pf)
+            return context
+
+        context.update ({
+            'message' : printService.printResult, 
+            'result' : 'PASS', 
+            'sn' : sn,
+            'log_message' : log
+        })
+
+        message = 'Successfully Generated Label {first} of Work Order {second}'.format(first=sn, second=id)
+        sn_object.sadmin_log('CREATE', 'Print {} Serial Number Label'.format(tp), 'PASS', sn, message, pf)
 
         context.update ({
             'serial_number' : sn,
-            'print_response': response,
+            'print_response': message
         })
         
         return JsonResponse(context, safe=False, status=200)
+
 
 def lrm_print_all_sn(request):
 
@@ -123,19 +171,22 @@ def lrm_print_all_sn(request):
         data = request.POST  
 
         db_obj = DataLayer()
+        printService = PrintLabel()
+        sn_object = SerialNumber()
         db_conn = db_obj.connect()
 
-        id = data.get('workorder_id').strip().upper()
-        wt = data.get('workorder_type').strip().upper()
-        sk = data.get('skuno').strip().upper()
-        pf = data.get('profile').strip().upper()
+        id = data.get('workorder_id').strip()
+        sk = data.get('skuno').strip()
+        pf = data.get('profile').strip()
+        tp = data.get('order_type').strip()
+        ot = data.get('object_type').strip()
         
         if sk == '' or sk == None:
             error.update({'result':'SKU Can\'t Not Be Empty'})
             return JsonResponse(error, safe=False, status=400)
 
         sp_params = db_obj.createparams(f"{id}")
-        sn_list = db_obj.runfunction(db_conn,'lrm_get_sn_by_wo', sp_params)
+        serial_number_list = db_obj.runfunction(db_conn,'lrm_get_sn_by_wo', sp_params)
 
         sp_params = db_obj.createparams(f"PRINT-SN,{id}")
         sp_result = db_obj.runstoredprocedure(db_conn,'lrm_wo_status_validation_sp', sp_params)
@@ -148,154 +199,58 @@ def lrm_print_all_sn(request):
             error.update({'result':sp_result})
             return JsonResponse(error, safe=False, status=400)
 
-        response = print_all_labels(id, sn_list, wt, pf)       
+        for i in range (len(serial_number_list)):
+            serial_number = serial_number_list[i][0]
+            object_type = ot
+            trans_type  = ot
+
+            log = 'Print {} Serial Number Label: Failed to Set Up Printer'.format(tp)
+            printService.get_bt_data(object_type)
+            if printService.error:
+                context.update ({
+                    'message' : printService.error, 
+                    'result' : 'FAIL', 
+                    'sn' : serial_number,
+                    'log_message' : log
+                })
+                sn_object.sadmin_log('EXCEPTION', 'Print {} Serial Number Label'.format(tp), 'FAIL', serial_number, log, pf)
+                return context
+
+            printService.get_data(serial_number, trans_type)
+            if printService.error:
+                context.update ({
+                    'message' : printService.error, 
+                    'result' : 'FAIL', 
+                    'sn' : serial_number,
+                    'log_message' : log
+                })
+                sn_object.sadmin_log('EXCEPTION', 'Print {} Serial Number Label'.format(tp), 'FAIL', serial_number, log, pf)
+                return context
+
+            log = 'Print {} Serial Number Label: Failed to Connect Printer'.format(tp)
+            printService.set_print()
+            if printService.error:
+                context.update ({
+                    'message' : printService.error, 
+                    'result' : 'FAIL', 
+                    'sn' : serial_number,
+                    'log_message' : log
+                })
+                sn_object.sadmin_log('EXCEPTION', 'Print {} Serial Number Label'.format(tp), 'FAIL', serial_number, log, pf)
+                return context
+        context.update ({
+            'message' : printService.printResult, 
+            'result' : 'PASS', 
+            'sn' : serial_number,
+            'log_message' : log
+        })
+
+        message = 'Successfully Generated All Labels of Work Order {}'.format(id)
+        sn_object.sadmin_log('CREATE', 'Print {} Serial Number Label'.format(tp), 'PASS', serial_number, message, pf)
 
         context.update ({
-            'serial_number_list' : sn_list,
-            'print_response': response
+            'serial_number_list' : serial_number_list,
+            'print_response': message
         })
 
         return JsonResponse(context, safe=False, status=200)
-
-def print_all_labels(workorder, serial_number_list, workorder_type, profile):
-    print (serial_number_list)
-    context = {}
-    log = ''
-
-    if workorder_type == 'PMWO':
-        transType = 'PRD-SN-LABEL'
-        objectType = 'PRD-SN-LABEL'
-    if workorder_type == 'PMCK':
-        transType = 'CK-SN-LABEL'
-        objectType = 'CK-SN-LABEL'        
-    if workorder_type == '1GWO':
-        transType = '1G-PRD-SN-LABEL'
-        objectType = '1G-PRD-SN-LABEL'
-
-    for i in range(len(serial_number_list)):
-        object_value = serial_number_list[i]
-        print (object_value)
-
-        '''
-        // Hashtable for serial_number and skuno
-
-        keys = ['serial_number', 'skuno']
-        values = [object_value[j] for j in range(len(object_value))]
-        sn_info = {key:value for key,value in zip(keys,values)}
-        '''
-        printService = PrintLabel()
-        sn_object = SerialNumber()
-        serial_number = object_value[0]
-
-        log = 'Print Batch Labels: Failed to Set Up Printer'
-        printService.get_bt_data(objectType)
-        if printService.error:
-            context.update ({
-                'message' : printService.error, 
-                'result' : 'FAIL', 
-                'sn' : serial_number,
-                'log_message' : log
-            })
-            sn_object.sadmin_log('EXCEPTION', 'Print SN Label', 'FAIL', serial_number, log, profile)
-            return context
-
-        printService.get_data(serial_number, transType)
-        if printService.error:
-            context.update ({
-                'message' : printService.error, 
-                'result' : 'FAIL', 
-                'sn' : serial_number,
-                'log_message' : log
-            })
-            sn_object.sadmin_log('EXCEPTION', 'Print SN Label', 'FAIL', serial_number, log, profile)
-            return context
-
-        log = 'Print Batch Labels: Failed to Connect Printer'
-        printService.set_print()
-        if printService.error:
-            context.update ({
-                'message' : printService.error, 
-                'result' : 'FAIL', 
-                'sn' : serial_number,
-                'log_message' : log
-            })
-            sn_object.sadmin_log('EXCEPTION', 'Print SN Label', 'FAIL', serial_number, log, profile)
-            return context
-
-    context.update ({
-        'message' : printService.printResult, 
-        'result' : 'PASS', 
-        'sn' : serial_number,
-        'log_message' : log
-    })
-
-    message = 'Successfully Generated All Labels of Work Order: {}'.format(workorder)
-    sn_object.sadmin_log('CREATE', 'Print SN Label', 'PASS', serial_number, message, profile)
-
-    return context
-
-def print_label(serial_number, workorder_type, profile):
-    log = ''
-    if workorder_type == 'PMWO':
-        transType = 'PRD-SN-LABEL'
-        objectType = 'PRD-SN-LABEL'
-    if workorder_type == 'PMCK':
-        transType = 'CK-SN-LABEL'
-        objectType = 'CK-SN-LABEL'    
-    if workorder_type == '1GWO':
-        transType = '1G-PRD-SN-LABEL'
-        objectType = '1G-PRD-SN-LABEL'            
-
-    printService = PrintLabel()
-    object_value = serial_number
-
-    context = {}
-
-    printService = PrintLabel()
-    sn_object = SerialNumber()
-
-    log = 'Reprint Single Label: Failed to Set Up Printer'
-    printService.get_bt_data(objectType)
-    if printService.error:
-        context.update ({
-            'message' : printService.error, 
-            'result' : 'FAIL', 
-            'sn' : object_value,
-            'log_message' : log
-        })
-        sn_object.sadmin_log('EXCEPTION', 'Print SN Label', 'FAIL', object_value, log, profile)
-        return context
-
-    printService.get_data(object_value, transType)
-    if printService.error:
-        context.update ({
-            'message' : printService.error, 
-            'result' : 'FAIL', 
-            'sn' : object_value,
-            'log_message' : log
-        })
-        sn_object.sadmin_log('EXCEPTION', 'Print SN Label', 'FAIL', object_value, log, profile)
-        return context
-
-    log = 'Reprint Single Label: Failed to Connect Printer'
-    printService.set_print()
-    if printService.error:
-        context.update ({
-            'message' : printService.error, 
-            'result' : 'FAIL', 
-            'sn' : object_value,
-            'log_message' : log
-        })
-        sn_object.sadmin_log('EXCEPTION', 'Print SN Label', 'FAIL', object_value, log, profile)
-
-        return context
-
-    context.update ({
-        'message' : printService.printResult, 
-        'result' : 'PASS', 
-        'sn' : object_value,
-        'log_message' : log
-    })
-    message = 'Successfully Generated Label: {}'.format(object_value)
-    sn_object.sadmin_log('CREATE', 'Print SN Label', 'PASS', object_value, message, profile)
-    return context
