@@ -1,22 +1,22 @@
 CREATE OR REPLACE PROCEDURE public.serialization_mask_rule_sp(transtype text DEFAULT ''::text, v_model text DEFAULT ''::text, rule_string integer DEFAULT 0, INOUT sp_result text DEFAULT ''::text)
- LANGUAGE plpgsql
+	LANGUAGE plpgsql
 AS $procedure$
 DECLARE 
-	v_mask_id				  int;
-	v_mask_rule				text = '';
-	r_min 					integer := 0 ; 
-	r_max 					integer := 0 ;
-	v_segment				text;
-	var_num_sample			text;
-	var_datatype			text;
-	var_length              int;
-	var_value				text;
-	var_workweek			int;
-	var_mask_string			text;
-	var_remainder			int;
-	i						int;
-	_mask_rule				varchar(50);
-begin
+	v_mask_id		INT;
+	v_mask_rule		TEXT = '';
+	r_min 			INTEGER := 0 ; 
+	r_max 			INTEGER := 0 ;
+	v_segment		TEXT;
+	var_num_sample		TEXT;
+	var_datatype		TEXT;
+	var_length              INT;
+	var_value		TEXT;
+	var_workweek		INT;
+	var_mask_string		TEXT;
+	var_remainder		INT;
+	i			INT;
+	_mask_rule		VARCHAR(50);
+BEGIN
 	CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 	if transtype = '' then
 		RAISE EXCEPTION 'Transaction Type cannot be null/empty' USING HINT = 'Custom Error';
