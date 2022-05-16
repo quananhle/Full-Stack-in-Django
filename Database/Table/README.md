@@ -6,6 +6,12 @@
 ### mfg_auditsortedconfig
 ![Audit Sorted Config](https://user-images.githubusercontent.com/35042430/158834018-1abab3e1-e13a-4fc7-bb9e-bc22dc56b8e0.png)
 
+### mfg_mask
+![Mask](https://user-images.githubusercontent.com/35042430/168659642-fd3b88fd-4d9e-4e6f-a828-61bd8c261b98.png)
+
+### mfg_maskmodels
+![Mask Models](https://user-images.githubusercontent.com/35042430/168659831-16edffb1-5faa-4a81-a249-758ffe6b7434.png)
+
 ### mfg_materialdatarelated
 ![Material Data Related](https://user-images.githubusercontent.com/35042430/167670796-90e13ccb-b54a-4dcf-92c0-655ea0a7b321.png)
 
@@ -17,6 +23,9 @@
 
 ### mfg_packserialnumber
 ![Pack Serial Number](https://user-images.githubusercontent.com/35042430/158690077-679d650b-9b66-4062-8ed8-bb2e331cc665.png)
+
+### mfg_segment
+![Segment](https://user-images.githubusercontent.com/35042430/168660043-b5b103ab-e42f-4a57-8090-8fcf7e894f5e.png)
 
 ### mfg_serialnumber
 ![Serial Number](https://user-images.githubusercontent.com/35042430/156664198-eab96444-5fb0-4d37-8e27-bcd6e4ebcb00.png)
