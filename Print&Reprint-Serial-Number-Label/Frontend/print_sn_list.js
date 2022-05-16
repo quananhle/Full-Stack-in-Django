@@ -13,7 +13,7 @@ var errorMessageBlock = $("#errorMsgModal");
 var successMessageBlock = $("#successMsgModal");
 var messageBlock = $("#msgModal");
 var title = $("#title");
-var selected_data; var viewTitle; var woType; var modelID;
+var selected_data; var viewTitle; var woType; var modelID; var objectType; var orderType;
 $('#wo_input').focus();
 
 var psl = {
@@ -23,8 +23,8 @@ var psl = {
 
         $('#spinner_left').show();
 
-        var serial_number_list_table      = $("#serial_number_list_table");
-        var serial_number_list_table_body = $("#serial_number_list_table tbody");
+        var serial_number_list_table         = $("#serial_number_list_table");
+        var serial_number_list_table_body    = $("#serial_number_list_table tbody");
         var print_status_tracking_table_body = $("#serial_number_list_table_tbody");
 
         messageBlock.children().remove();
@@ -61,16 +61,10 @@ var psl = {
                 viewTitle = response.viewTitle;
                 modelID = response.skuno;
                 woType = object_dict['production_version'];
+                objectType = object_dict['object_type'];
+                orderType = object_dict['order_type'];
 
-                if (woType == 'PMWO' || woType == 'PMCK') {
-                    $('#workorder_type_header' ).html("PMDU Production Order");
-                }
-                if (woType == 'PMCK') {
-                    $('#workorder_type_header' ).html("PMDU Country Kit Order");                 
-                }
-                if (woType == '1GWO') {
-                    $('#workorder_type_header' ).html("1G Production Order");                 
-                }
+                $('#workorder_type_header' ).html(orderType);
 
                 $('#status_card' ).html(object_dict['status_id']);
                 $('#qty_card'    ).html(object_dict['target_qty']);
@@ -176,6 +170,8 @@ var psl = {
                 'workorder_type'     : woType,
                 'skuno'              : modelID,
                 'profile'            : profile,
+                'object_type'        : objectType,
+                'order_type'         : orderType,
                 'csrfmiddlewaretoken': tkn
             },
             dataType: 'json',
@@ -250,6 +246,8 @@ var psl = {
                 'workorder_type'     : woType,
                 'skuno'              : modelID,
                 'profile'            : profile,
+                'object_type'        : objectType,
+                'order_type'         : orderType,
                 'csrfmiddlewaretoken': tkn
             },
             dataType: 'json',
