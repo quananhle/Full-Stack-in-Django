@@ -27,6 +27,12 @@
 ### mfg_segment
 ![Segment](https://user-images.githubusercontent.com/35042430/168660043-b5b103ab-e42f-4a57-8090-8fcf7e894f5e.png)
 
+### mfg_serializationrule
+![Serialization Rule](https://user-images.githubusercontent.com/35042430/168660331-ec4a40e2-fea5-4f04-8de7-9b10fe5d2361.png)
+
+### mfg_serializationrulevalues
+![Serialization Rule Values](https://user-images.githubusercontent.com/35042430/168660468-d4906326-9ef4-4e15-a23a-4ff52f8fa83d.png)
+
 ### mfg_serialnumber
 ![Serial Number](https://user-images.githubusercontent.com/35042430/156664198-eab96444-5fb0-4d37-8e27-bcd6e4ebcb00.png)
 
@@ -41,6 +47,9 @@
 
 ### shp_deliverynumberdetail
 ![Delivery Number Detail](https://user-images.githubusercontent.com/35042430/167670246-f61ef114-0ee3-4b84-947b-80f6ca7575a7.png)
+
+### srv_labelconfig
+![Label Config](https://user-images.githubusercontent.com/35042430/168660613-74906614-e21f-4b21-8873-a0a54c82ca0b.png)
 
 ### shp_pallet
 ![Pallet](https://user-images.githubusercontent.com/35042430/158689672-233e6283-3bc4-4900-843e-8917fbe61f23.png)
