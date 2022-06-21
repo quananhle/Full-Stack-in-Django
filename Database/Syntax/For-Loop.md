@@ -1,3 +1,4 @@
+```{SQL}
 CREATE OR REPLACE FUNCTION public.tls_get_sn_info(v_serial_number text)
  RETURNS TABLE(t_workorder_id character varying, t_station character varying, t_last_station character varying, t_skuno character varying, t_production_version character varying, t_route_id character varying, t_status character varying, t_row_id character varying, t_passed_station character varying, t_action character varying, t_scan_date character varying, t_scan_by character varying)
  LANGUAGE plpgsql
@@ -75,3 +76,4 @@ DECLARE
 	END;
 $function$
 ;
+```
