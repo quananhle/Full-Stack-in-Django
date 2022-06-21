@@ -8,14 +8,14 @@ DECLARE
 	r_min 					integer := 0 ; 
 	r_max 					integer := 0 ;
 	v_segment				text;
-	var_num_sample			text;
-	var_datatype			text;
-	var_length              int;
+	var_num_sample				text;
+	var_datatype				text;
+	var_length              		int;
 	var_value				text;
-	var_workweek			int;
-	var_mask_string			text;
-	var_remainder			int;
-	i						int;
+	var_workweek				int;
+	var_mask_string				text;
+	var_remainder				int;
+	i					int;
 	_mask_rule				varchar(50);
 begin
 	CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
