@@ -143,4 +143,5 @@ $ python manage.py runserver
 
 ![image](https://user-images.githubusercontent.com/35042430/167465648-2a62f131-f42a-433d-82b9-4eaeb17038b7.png)
 
+![image](https://user-images.githubusercontent.com/35042430/176514733-88939fd9-8bdd-4135-9f93-8de2d6c93007.png)
 
