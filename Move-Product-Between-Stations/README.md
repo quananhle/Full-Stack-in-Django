@@ -1,11 +1,6 @@
+# Move Products Between Sections
 
 ![image](https://user-images.githubusercontent.com/35042430/175477730-364c4a53-3452-4799-a9b2-e39e6b1f524a.png)
-
-# Change SN Station tool
-
-|Task ID|Assisgned to	|
-|--	|--		|
-|23060	|Quan Le	|
 
 * [Review List](#review-list)
 * [Requirement](#requirement)
@@ -24,20 +19,6 @@
 * [Testing](#testing)
 	* [Summary](#summary)
 	* [Cases](#cases)
-
-## Review List 
-
-|Time	|Reviewed By	|Items		|Results|
-|--	|--		|--		|--	|
-|	| 		|Requirement 	|	|
-|	| 		|Req Analysis 	|	|
-|	| 		|Change Summary |	|	 
-|	| 		|Change Details |	|	 
-|	| 		|Implementation |	|	 
-|	| 		|Testing 	|	|
-|	| 		|Code Review 	|	|
-|	| 		|Release Details|	|	 
-|	| 		|Approved 	|	|
 
 ## Requirement
 ### Change Request (Document)
@@ -504,3 +485,5 @@ _Test Case No: 24 – Wrong BPL Approval_
 	
 
 	
+
+![image](https://user-images.githubusercontent.com/35042430/175477730-364c4a53-3452-4799-a9b2-e39e6b1f524a.png)
