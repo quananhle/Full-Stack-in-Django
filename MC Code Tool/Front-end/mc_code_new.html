@@ -1,0 +1,186 @@
+{% extends 'main/index.html' %}
+
+{% block content %}
+{% load static %}
+<main class="page-content">
+    <div class="container-fluid">
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-info">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'tls:tls_home' %}">Tools</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'tls:tls_mc_code' %}">MC Code Tool</a></li>
+                <li class="breadcrumb-item active"><strong>{{ viewTitle }}</strong></li>
+            </ol>
+        </nav>
+
+        <div class="content-layout">
+            <form method="POST" action= "{% url 'tls:tls_mc_code_new_tool' %}">
+                <div class="row p-3 col-lg-12 shadow-soft bg-primary border-light rounded" style="margin-left: 1px;">
+                    <div class="col-md-3 card" style="display: flex; justify-content: space-between;">
+                        {% csrf_token %}
+                        <label for="new_mc_code">MC Code</label>
+                        <input type="text" name="new_mc_code" id="new_mc_code" {%if new_mc_code %} value="{{new_mc_code}}" {% else %} value="" {% endif %} class="form-control">
+                        <small class="form-text text-muted">Enter an MC code</small>
+                    </div>
+                    <div class="col-md-9 card">
+                        {% csrf_token %}
+                        <label for="new_mc_desc">MC Description</label>
+                        <input type="text" name="new_mc_desc" id="new_mc_desc" {%if new_mc_desc %} value="{{new_mc_desc}}" {% else %} value="" {% endif %} class="form-control">
+                        <small class="form-text text-muted">Enter a description for MC Code</small>
+                    </div>
+                    <div class="col-md-6 card" style="display: flex; justify-content: space-between;">
+                        {% csrf_token %}
+                        <label for="new_scan_mode">Scan Mode</label>
+                        <select class="form-control form-control-sm" id="new_scan_mode" name="new_scan_mode">
+                        {% for s  in scanModes %}
+                            <option>{{ s }}</option>
+                        {% endfor %}
+                        </select>                   
+                        <small class="form-text text-muted">Select Scan Mode from drop-down list</small>
+                    </div>
+                    <div class="col-md-6 card">
+                        {% csrf_token %}
+                        <label for="new_category">Category</label>
+                        <select class="form-control form-control-sm" id="new_category" name="new_category">
+                        {% for s  in category %}
+                            <option>{{ s }}</option>
+                        {% endfor %}
+                        </select>                   
+                        <small class="form-text text-muted">Select MC Category from drop-down list</small>
+                    </div>
+                {% comment %} </div>
+                <div class="row p-3 col-lg-6 shadow-soft bg-primary border-light rounded" style="margin-left: 1px; margin-top: 15px;">
+
+                </div> {% endcomment %}
+
+
+                {% comment %} <div class="row p-3">
+                    <div class="col-md-3 card shadow-soft bg-primary border-light rounded" style="display: flex; justify-content: space-between; margin-right: 50px">
+                        <form id ='new_mc_form'>
+                            {% csrf_token %}
+                            <label for="new_mc_code">MC Code</label>
+                            <input type="text" name="new_mc_code" id="new_mc_code" {%if new_mc_code %} value="{{new_mc_code}}" {% else %} value="" {% endif %} class="form-control">
+                            <small class="form-text text-muted">Enter an MC code</small>
+                        </form>
+                    </div>
+                    <div class="col-md-8 card shadow-soft bg-primary border-light rounded">
+                        <form id ='new_mc_form'>
+                            {% csrf_token %}
+                            <label for="new_mc_desc">MC Description</label>
+                            <input type="text" name="new_mc_desc" id="new_mc_desc" {%if new_mc_desc %} value="{{new_mc_desc}}" {% else %} value="" {% endif %} class="form-control">
+                            <small class="form-text text-muted">Enter a description for MC Code</small>
+                        </form>
+                    </div>
+                </div> {% endcomment %}
+
+
+                {% comment %} <div class="row p-3">
+                    <div class="col-md-3 card shadow-soft bg-primary border-light rounded" style="margin-right: 50px">
+                        <form id ='new_mc_form'>
+                            {% csrf_token %}
+                            <label for="new_scan_mode">Scan Mode</label>
+                            <select class="form-control form-control-sm" id="new_scan_mode" name="new_scan_mode">
+                            {% for s  in scanModes %}
+                                <option>{{ s }}</option>
+                            {% endfor %}
+                            </select>                   
+                            <small class="form-text text-muted">Select Scan Mode from drop-down list</small>
+                        </form>
+                    </div>
+                    <div class="col-md-3 card shadow-soft bg-primary border-light rounded">
+                        <form id ='new_mc_form'>
+                            {% csrf_token %}
+                            <label for="new_category">Category</label>
+                            <select class="form-control form-control-sm" id="new_category" name="new_category">
+                            {% for s  in category %}
+                                <option>{{ s }}</option>
+                            {% endfor %}
+                            </select>                   
+                            <small class="form-text text-muted">Select MC Category from drop-down list</small>
+                        </form>
+                    </div>
+                </div> {% endcomment %}
+
+
+            </form>
+
+
+
+            <div class="row p-3">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="form-check col-12 model-btn-section">
+                            <label for="scannable">Scannable</label>
+                            {% comment %} <input class="form-check-input" type="radio" name="scannable" id="yes_radio" value="1">
+                            <label class="form-check-label col-3" style="margin-left:50px" for="yes_radio">Yes</label>
+                            <input class="form-check-input" type="radio" name="scannable" id="no_radio" value="0">
+                            <label class="form-check-label col-3" for="no_radio">No</label> {% endcomment %}
+                        </div>
+                        <div class="form-check col-12 model-btn-section">
+                            <input class="form-check-input" type="radio" name="scannable" id="yes_radio" value="1">
+                            <label class="form-check-label col-3" style="margin-right:50px" for="yes_radio">Yes</label>
+                            <input class="form-check-input" type="radio" name="scannable" id="no_radio" value="0">
+                            <label class="form-check-label col-3" for="no_radio">No</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row p-3">
+                <div class="modal-footer" style="text-align: left">
+                    {% csrf_token %}
+                    <button type="button" class="btn btn-primary text-info ml-auto" style="width: 10em; margin-right: 50px" id="createMC">Save</button>
+                </div>
+                <div class="col-md-9 ">
+                    <div class="container" id="errorMsgModal" style="margin-left: 10px; width: 100%;">
+                        {% if errorMsg  %}
+                            <div class="row justify-content-md-center">
+                                <div class="col-md-auto">
+                                    <div class="alert alert-danger shadow-soft" role="alert" style="background-color:#a91e2c; color:#fff; display: table;">
+                                        <p class="mb-0" id="errorMsg">{{ errorMsg }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% csrf_token %}
+
+{% load static %}
+<script src="{% static 'main_theme/js/layout.js' %}"></script>
+<script src="{% static 'apps/wo_manager/wo_actions.js' %}"></script>
+
+<script type="text/javascript">   
+    $(document).ready(function () {
+        // Disable download button if input is empty
+        var wo_download_button = document.getElementById('search-wo')
+        var wo = document.getElementById('wo-input')
+        wo.addEventListener("input", function(){
+            wo_download_button.disabled = (this.value === '');
+        })
+    });
+
+    $(document).on('click', "#search-wo", function() {
+        main.clean_error_message();
+        let validInput = document.getElementById('wo-input').validity.valid
+        if (!validInput){
+            main.show_error_message("Missing Workorder Value");
+        }
+        else{
+            console.log("Searching WO-Front End");            
+            dwn.getWorkOrderInfo(); 
+        }        
+    }); 
+
+    $(document).on('click', "#download-wo", function() {
+        dwn.downloadWorkOrder();            
+    }); 
+    
+</script>
+
+{% endblock %}
+
