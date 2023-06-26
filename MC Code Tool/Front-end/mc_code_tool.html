@@ -1,0 +1,169 @@
+{% extends 'main/index.html' %}
+
+{% block content %}
+{% load static %}
+<main class="page-content">
+    <div class="container-fluid">
+        
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-info">
+                <li class="breadcrumb-item "><a href="{% url 'home' %}">Dashboard</a></li> 
+                <li class="breadcrumb-item "><a href="{% url 'tls:tls_home' %}">Tools</a></li> 
+                <li class="breadcrumb-item active"> <strong>{{ viewTitle }}</strong></li>   
+            </ol>
+          </nav>
+
+        <div class="content-layout">
+            <div class="row">
+                <div class="col align-self-end" style="text-align:begin;">
+                    <form  method="GET" action= "{% url 'tls:tls_mc_code_new' %}">
+                        <button type="submit" class="btn btn-primary text-secondary border-light rounded" style="margin-top: 20px; width:170px;">New MC Code</button>
+                    </form>
+                </div>
+            </div>
+
+            <br>
+            {% if workorderlist %}
+                <div class="row">
+                    <div class="col-md-12">                
+                        <table class="table table-hover table-bordered table-sm shadow-inset rounded " id="mc-code-table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">NO.</th>
+                                    <th scope="col">MC CODE</th>
+                                    <th scope="col">MC DESCRIPTION</th>
+                                    <th scope="col">SCAN MODE</th>
+                                    <th scope="col">CATEGORY</th>
+                                    <th scope="col">SCANNABLE</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for wo  in workorderlist %}
+                                    <tr>
+                                        <th style="vertical-align: middle;">{{ forloop.counter }}</th>
+                                        <td>
+                                            <a type="button" class="btn btn-primary text-secondary btn-sm " data-target="#edit_mc_code_modal" data-toggle="modal">
+                                                <span>{{ wo.workorder_id }}</span>
+                                            </a>
+                                        </td>
+                                        <td style="vertical-align: middle;">{{ wo.skuno.model_id }}</td>
+                                        <td style="vertical-align: middle;">{{ wo.status_id }}</td>
+                                        <td style="vertical-align: middle;">{{ wo.route_id }}</td>
+                                        <td style="vertical-align: middle;">{{ wo.production_version }}</td>
+                                    </tr>  
+                                {% endfor %}   
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {% endif %} 
+        </div>
+
+
+        <div class="modal fade" id="edit_mc_code_modal" tabindex="-1" role="dialog" aria-labelledby="edit_mc_code_modal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content border-light rounded">
+                    <div class="modal-header font-styling-header">
+                        <h5 class="col-11 modal-title text-center" style="text-align: center;">Edit MC Code</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form method="POST" action= "{% url 'tls:tls_mc_code_update_tool' %}">
+                        <div class="modal-body" style="text-align: left;">                                        
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="mc_description">MC Description</label>
+                                    <input type="text" class="form-control" id="mc_description" name="mc_description">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="scan_mode">Scan Mode</label>
+                                    <select class="form-control form-control-sm" id="scan_mode" name="scan_mode">
+                                    {% for s  in scanTypes %}
+                                        <option>{{ s }}</option>
+                                    {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="category">Category</label>
+                                    <select class="form-control form-control-sm" id="category" name="category">
+                                    {% for s  in scanTypes %}
+                                        <option>{{ s }}</option>
+                                    {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-check col-12 model-btn-section">
+                                    <label for="scannable">Scannable</label>
+                                    <input class="form-check-input" type="radio" name="scannable" id="yes_radio" value="1">
+                                    <label class="form-check-label col-3" style="margin-left:50px" for="yes_radio">Yes</label>
+                                    <input class="form-check-input" type="radio" name="scannable" id="no_radio" value="0">
+                                    <label class="form-check-label col-3" for="no_radio">No</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="errorMsgModal1"></div>
+
+                        <div class="col-12 modal-footer" style="display: inline-block; justify-content: space-between; text-align: center">
+                            {% csrf_token %}
+                            <button type="button" class="btn btn-primary text-info ml-auto" style="width: 10em; margin-right: 50px" id="updateButton">Update</button>
+                            <button type="button" class="btn btn-primary text-danger ml-auto" data-dismiss="modal" style="width: 10em;" id="cancel_edit_mc_code">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">            
+            <div class="container" id="errorMsgModal" >
+                {% if errorMsg  %} 
+                    <div class="row justify-content-md-center">
+                        <div class="col-md-auto">
+                            <div class="alert alert-danger" role="alert">          
+                                <p class="mb-0" id="errorMsg">{{ errorMsg }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+       
+        <input type="hidden" id="profile" Value={{ user.get_username }}>
+    </div>
+</main>
+
+{% load static %}
+<script src="{% static 'apps/mc_code/mc_code_tool.js' %}"></script>
+
+<script type="text/javascript">   
+    $(document).ready(function () {
+        $('#mc-code-table').DataTable();
+        $(".modal").on("hidden.bs.modal", function(){
+            $(".modal-error-content").text("");
+        });
+    }); 
+
+    function updateButton(wo, status) {
+        console.log("button press"); 
+        console.log(wo, status)
+        mcc.updateButton(wo, status);
+    };
+
+    $("#updateButton").click(function(evennt) {
+        console.log("Update Button Pressed");
+        event.preventDefault();
+        mcc.updateButton();
+    });
+</script>
+
+
+{% endblock %}
+
