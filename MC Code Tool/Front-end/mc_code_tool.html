@@ -17,14 +17,14 @@
         <div class="content-layout">
             <div class="row">
                 <div class="col align-self-end" style="text-align:begin;">
-                    <form  method="GET" action= "{% url 'tls:tls_mc_code_new' %}">
+                    <form method="GET" action= "{% url 'tls:tls_mc_code_new' %}">
                         <button type="submit" class="btn btn-primary text-secondary border-light rounded" style="margin-top: 20px; width:170px;">New MC Code</button>
                     </form>
                 </div>
             </div>
 
             <br>
-            {% if workorderlist %}
+            {% if mcCodesList %}
                 <div class="row">
                     <div class="col-md-12">                
                         <table class="table table-hover table-bordered table-sm shadow-inset rounded " id="mc-code-table">
@@ -39,18 +39,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for wo  in workorderlist %}
+                                {% for mc in mcCodesList %}
                                     <tr>
                                         <th style="vertical-align: middle;">{{ forloop.counter }}</th>
                                         <td>
-                                            <a type="button" class="btn btn-primary text-secondary btn-sm " data-target="#edit_mc_code_modal" data-toggle="modal">
-                                                <span>{{ wo.workorder_id }}</span>
+                                            <a type="button" class="btn btn-primary text-secondary btn-sm" style="width: 200px; margin-right: 20px; margin-left: 20px;" data-target="#edit_mc_code_modal" data-toggle="modal">
+                                                <span>{{ mc.mc_code }}</span>
                                             </a>
                                         </td>
-                                        <td style="vertical-align: middle;">{{ wo.skuno.model_id }}</td>
-                                        <td style="vertical-align: middle;">{{ wo.status_id }}</td>
-                                        <td style="vertical-align: middle;">{{ wo.route_id }}</td>
-                                        <td style="vertical-align: middle;">{{ wo.production_version }}</td>
+                                        <td style="vertical-align: middle;">{{ mc.mc_description }}</td>
+                                        <td style="vertical-align: middle;">{{ mc.scan_mode }}</td>
+                                        <td style="vertical-align: middle;">{{ mc.category }}</td>
+                                        <td style="vertical-align: middle;">{{ mc.scannable }}</td>
                                     </tr>  
                                 {% endfor %}   
                             </tbody>
@@ -64,27 +64,28 @@
         <div class="modal fade" id="edit_mc_code_modal" tabindex="-1" role="dialog" aria-labelledby="edit_mc_code_modal" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content border-light rounded">
-                    <div class="modal-header font-styling-header">
-                        <h5 class="col-11 modal-title text-center" style="text-align: center;">Edit MC Code</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
                     <form method="POST" action= "{% url 'tls:tls_mc_code_update_tool' %}">
+                        <div class="modal-header font-styling-header">
+                            <h5 class="col-11 modal-title text-center" style="text-align: center;">Edit MC Code</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                         <div class="modal-body" style="text-align: left;">                                        
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label for="mc_description">MC Description</label>
-                                    <input type="text" class="form-control" id="mc_description" name="mc_description">
+                                    <input type="text" class="form-control" id="mc_description" name="mc_description" placeholder="Enter MC Description here">
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label for="scan_mode">Scan Mode</label>
                                     <select class="form-control form-control-sm" id="scan_mode" name="scan_mode">
-                                    {% for s  in scanTypes %}
-                                        <option>{{ s }}</option>
-                                    {% endfor %}
+                                        <option disabled selected value> Select an option </option>
+                                        {% for data in scanModes %}
+                                            <option>{{ data.scan_mode }}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                             </div>
@@ -92,9 +93,10 @@
                                 <div class="form-group col-md-12">
                                     <label for="category">Category</label>
                                     <select class="form-control form-control-sm" id="category" name="category">
-                                    {% for s  in scanTypes %}
-                                        <option>{{ s }}</option>
-                                    {% endfor %}
+                                        <option disabled selected value> Select an option </option>
+                                        {% for data  in categories %}
+                                            <option>{{ data.category }}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                             </div>
@@ -110,10 +112,10 @@
                         </div>
 
                         <div id="errorMsgModal1"></div>
-
+                        
                         <div class="col-12 modal-footer" style="display: inline-block; justify-content: space-between; text-align: center">
                             {% csrf_token %}
-                            <button type="button" class="btn btn-primary text-info ml-auto" style="width: 10em; margin-right: 50px" id="updateButton">Update</button>
+                            <button type="submit" class="btn btn-primary text-info ml-auto" style="width: 10em; margin-right: 50px" id="updateButton">Update</button>
                             <button type="button" class="btn btn-primary text-danger ml-auto" data-dismiss="modal" style="width: 10em;" id="cancel_edit_mc_code">Cancel</button>
                         </div>
                     </form>
