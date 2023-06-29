@@ -1,21 +1,21 @@
 CREATE OR REPLACE PROCEDURE DFMS_MAZ."SP_MC_CODE_TOOL_42Q"(
-	i_trans_type		IN VARCHAR2 								:= '',
-	i_mc_code			IN WIP_S_MATERIAL_CATEGORY.MC_CODE%TYPE 	:= '',
+	i_trans_type		IN VARCHAR2 					:= '',
+	i_mc_code		IN WIP_S_MATERIAL_CATEGORY.MC_CODE%TYPE 	:= '',
 	i_mc_description	IN WIP_S_MATERIAL_CATEGORY.MC_DESC%TYPE 	:= '',
-	i_scan_mode			IN WIP_S_MATERIAL_CATEGORY.SCAN_MODE%TYPE 	:= '',
-	i_category			IN WIP_S_MATERIAL_CATEGORY.CATEGORY%TYPE 	:= '',
-	i_scannable			IN WIP_S_MATERIAL_CATEGORY.SCANNABLE%TYPE 	:= NULL,
-	i_user				IN WIP_S_MATERIAL_CATEGORY.CREATOR%TYPE 	:= '',
-	o_res 				OUT VARCHAR2
+	i_scan_mode		IN WIP_S_MATERIAL_CATEGORY.SCAN_MODE%TYPE 	:= '',
+	i_category		IN WIP_S_MATERIAL_CATEGORY.CATEGORY%TYPE 	:= '',
+	i_scannable		IN WIP_S_MATERIAL_CATEGORY.SCANNABLE%TYPE 	:= NULL,
+	i_user			IN WIP_S_MATERIAL_CATEGORY.CREATOR%TYPE 	:= '',
+	o_res 			OUT VARCHAR2
 )
 IS
 	ex			EXCEPTION;
-	v_count		INTEGER;
-   	v_mc_code	WIP_S_MATERIAL_CATEGORY.MC_CODE%TYPE;
-   	v_mc_desc	WIP_S_MATERIAL_CATEGORY.MC_DESC%TYPE;
-   	v_scan_mode	WIP_S_MATERIAL_CATEGORY.SCAN_MODE%TYPE;
-   	v_category	WIP_S_MATERIAL_CATEGORY.CATEGORY%TYPE;
-   	v_scannable	WIP_S_MATERIAL_CATEGORY.SCANNABLE%TYPE;
+	v_count			INTEGER;
+   	v_mc_code		WIP_S_MATERIAL_CATEGORY.MC_CODE%TYPE;
+   	v_mc_desc		WIP_S_MATERIAL_CATEGORY.MC_DESC%TYPE;
+   	v_scan_mode		WIP_S_MATERIAL_CATEGORY.SCAN_MODE%TYPE;
+   	v_category		WIP_S_MATERIAL_CATEGORY.CATEGORY%TYPE;
+   	v_scannable		WIP_S_MATERIAL_CATEGORY.SCANNABLE%TYPE;
 BEGIN
 	v_mc_code := i_mc_code ; v_mc_desc := i_mc_description ; v_scan_mode := i_scan_mode ; v_category := i_category ; v_scannable := i_scannable ;
 
@@ -83,8 +83,9 @@ BEGIN
 	   	THEN
 	   		SELECT SCAN_MODE INTO v_scan_mode FROM WIP_S_MATERIAL_CATEGORY WHERE MC_CODE = v_mc_code ;
 	   	END IF;
+
    		-- Validate Scan Mode
-	    SELECT COUNT(1) INTO v_count FROM WIP_S_MATERIAL_CATEGORY WHERE SCAN_MODE = v_scan_mode;
+	    SELECT COUNT(1) INTO v_count FROM WIP_S_MATERIAL_CATEGORY WHERE SCAN_MODE = v_scan_mode OR v_scan_mode = 'N/A';
    		IF v_count = 0
    		THEN
 	   		o_res := 'Scan Mode: "' || v_scan_mode || '" invalid. Call I.T.';
@@ -97,8 +98,9 @@ BEGIN
 	   	THEN
 	   		SELECT CATEGORY INTO v_category FROM WIP_S_MATERIAL_CATEGORY WHERE MC_CODE = v_mc_code ;
 	   	END IF;
+
    		-- Validate Category
-	    SELECT COUNT(1) INTO v_count FROM WIP_S_MATERIAL_CATEGORY WHERE CATEGORY = v_category;
+	    SELECT COUNT(1) INTO v_count FROM WIP_S_MATERIAL_CATEGORY WHERE CATEGORY = v_category OR v_category = 'N/A';
    		IF v_count = 0
    		THEN
 	   		o_res := 'Category: "' || v_category || '" invalid. Call I.T.';
