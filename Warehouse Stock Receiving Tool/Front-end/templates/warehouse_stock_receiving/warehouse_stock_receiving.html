@@ -1,0 +1,161 @@
+{% extends 'main/index.html' %}
+
+{% block content %}
+{% load static %}
+<main class="page-content">
+    <div class="container-fluid">
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-info">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'tls:tls_home' %}">Tools</a></li>
+                <li class="breadcrumb-item active"><strong>{{ viewTitle }}</strong></li>
+            </ol>
+        </nav>
+
+
+        <div class="row">
+            <div class="col-md-12 ">
+                <div class="content-layout">
+                    <div class="row p-3 col-lg-12 shadow-soft bg-primary border-light rounded" style="margin-left: 1px;">
+                        <label for="mfg_pn_input" style="display: flex; justify-content: space-between; position:relative; top:10px">Manufacture PN</label>
+
+                        <div class="col-md-3 card" style="display: flex; justify-content: space-between;">
+                            {% csrf_token %}
+                            <input type="text" name="mfg_pn_input" id="mfg_pn_input" placeholder="Enter a Manufacture PN" class="form-control">
+                        </div>
+                        <div class="col-md-3 card" style="display: flex; justify-content: space-between;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary text-info ml-auto" style="width: 10em; margin-right: 150px;" id="save">Save</button>
+                        </div>
+                        <div class="form-group mx-sm-3 mb-2">   
+                            <div class="mx-sm-3 mb-2">
+                                <img id="spinner" alt="loading..." src="{% static 'main_theme/img/spinner_transparent.svg' %}" style="width: 35px; display: none">
+                            </div>
+                        </div> 
+                        {% comment %} <div class="row p-3 col-lg-12" style="margin-left: 1px;" id="barcode_2d_input_area">
+                            <label for="barcode_2d_input" style="display: flex; justify-content: space-between; position:relative; top:10px">2D Barcode</label>
+                            <div class="col-md-5 card" style="display: flex; justify-content: space-between; margin-left: 10px;">
+                                {% csrf_token %}
+                                <input type="text" name="barcode_2d_input" id="barcode_2d_input" placeholder="Enter a 2D Barcode" {%if barcode_2d_input %} value="{{barcode_2d_input}}" {% else %} value="" {% endif %} class="form-control">
+                            </div>
+                        </div> {% endcomment %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 ">
+                <div class="form-row">
+                    <div class="form-inline col-md-12 content-layout" style="padding-bottom: 0;padding-top: 1rem;">                            
+                        <div class="col-md-4 ">
+                            <div class="card border-success  mb-3" >    
+                                <div class="card-header" style="padding-right: .5rem;padding-left: .5rem;padding-top: 0;padding-bottom: 0;text-align: center;"><strong>Hon Hai PN</strong></div>                            
+                                <div class="card-body text-success " style="padding: .5rem;">
+                                    <p class="card-text" style="text-align: center;" id="hh_pn"><strong>{% if afbs_list.HH_MODEL_ID %} {{afbs_list.HH_MODEL_ID}} {% else %} &nbsp; {% endif %}</strong> </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 ">
+                            <div class="card border-success  mb-3" >    
+                                <div class="card-header" style="padding-right: .5rem;padding-left: .5rem;padding-top: 0;padding-bottom: 0;text-align: center;"><strong>Foxconn PN</strong></div>                            
+                                <div class="card-body text-success " style="padding: .5rem;">
+                                    <p class="card-text" style="text-align: center;" id="fxn_pn"><strong>{% if afbs_list.FXN_MODEL_ID %} {{afbs_list.FXN_MODEL_ID}} {% else %} &nbsp; {% endif %}</strong> </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 ">
+                            <div class="card border-success  mb-3" >    
+                                <div class="card-header" style="padding-right: .5rem;padding-left: .5rem;padding-top: 0;padding-bottom: 0;text-align: center;"><strong>AWS PN</strong></div>                            
+                                <div class="card-body text-success " style="padding: .5rem;">
+                                    <p class="card-text" style="text-align: center;" id="aws_pn"><strong>{% if afbs_list.AWS_MODEL_ID %} {{afbs_list.AWS_MODEL_ID}} {% else %} &nbsp; {% endif %}</strong> </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>                                                                        
+            </div>                        
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 ">
+                <div class="content-layout">
+                    <div class="row p-3 col-lg-12 shadow-soft bg-primary border-light rounded" style="margin-left: 1px;">
+                        <div class="container" id="msgModal" style="width: 100%;">
+                            {% if errorMsg  %}                                  
+                            <div class="row justify-content-md-center">
+                                <div class="col-md-12">
+                                    <div class="alert alert-danger shadow-soft" role="alert" style="background-color:#D0342C; color:#fff; display: table;">
+                                        <p class="mb-0" id="errorMsg">{{ errorMsg }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if successMsg  %}                                  
+                                <div class="row justify-content-md-center">
+                                    <div class="col-md-auto">
+                                        <div class="alert alert-success shadow-soft" role="alert" style="background-color:#4BB543; color:#fff; display: table;">
+                                            <p class="mb-0" id="successMsg">{{ successMsg }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-md-12 ">
+                <div class="content-layout">
+                    <div class="row p-3 col-lg-12 shadow-soft bg-primary border-light rounded" style="margin-left: 1px;" id="csn_input_area">
+                        <label for="new_mc_code" style="display: flex; justify-content: space-between; position:relative; top:10px">Component Serial Number</label>
+
+                        <div class="col-md-5 card" style="display: flex; justify-content: space-between;">
+                            {% csrf_token %}
+                            <input type="text" name="bs_csn_input" id="bs_csn_input" placeholder="Enter a Component SN" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="table-assydetail_wrapper">
+                    <table class="table" id="csn_table">
+                        <thead>
+                            <tr style="font-size: 70%; align-items: center;">
+                                {% if tbl_header %}
+                                        {% for title in tbl_header %}
+                                            <th>{{title}}</th>
+                                        {% endfor %}
+                                {% endif %}
+                            </tr>
+                        </thead>
+                        <tbody id ="tbl_body">
+                            
+                        </tbody>
+                    </table>                                                
+                </div>
+                {% comment %} <div id="overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); align-items: center; justify-content: center;">
+                    <div id="modal" style="background-color: #fff; padding: 10px; border-radius: 5px; text-align: center;">
+                        <p>Are you sure you want to delete this row?</p>
+                        <button id="btnYes" class="btn btn-icon-only btn-primary" style="color: green" type="button">Yes</button>
+                        <button id="btnNo" class="btn btn-icon-only btn-primary" style="color: red" type="button">No</button>
+                    </div>
+                </div> {% endcomment %}
+            </div>                                            
+        </div>
+
+    </div>
+    <input type="hidden" id="profile" Value={{ user.get_username }}>
+</main>
+
+<script src="{% static 'apps/upload_bs/upload_bs.js' %}"></script>
+{% endblock %}
+
